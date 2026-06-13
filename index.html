@@ -430,6 +430,8 @@
 
   /* ================= PRODUCT BAND (ivory) ================= */
   img.slot { display: block; object-fit: cover; }
+  /* Product shot in the waitlist band: show the WHOLE blister pack, never crop it */
+  #product { object-fit: contain; }
   .hero-img { display: block; width: 100%; object-fit: cover; object-position: center; }
   .wl-grid { width: 100%; display: grid; grid-template-columns: 1fr; gap: clamp(2.5rem, 8vw, 4rem); align-items: center; }
   .wl-media .slot {
@@ -763,10 +765,21 @@
   .hero-media { display: none; }
 
   @media (max-width: 899px) {
-    .hero-media, .feel-media { display: none; }
-    /* Mobile: ground the hero copy near the foot line instead of floating it
-       mid-screen, so the empty space collects above it for a deliberate, weighted feel */
-    .hero-main { justify-content: flex-end; padding-bottom: clamp(1.2rem, 5vh, 2.4rem); }
+    .feel-media { display: none; }
+    /* Mobile: let the hero grow past one screen if needed so nothing clips */
+    .hero, :root[data-density="tight"] .hero { height: auto; min-height: 100svh; }
+    /* Show the hero photo in the upper void, with the copy grounded below it */
+    .hero-media {
+      display: flex; order: -1;
+      justify-content: center; align-items: flex-start;
+      margin-bottom: clamp(1.4rem, 5vw, 2.2rem);
+    }
+    .hero-img {
+      width: auto; max-width: 82%;
+      height: auto; max-height: clamp(200px, 34svh, 380px);
+      aspect-ratio: auto; object-fit: contain; object-position: center;
+    }
+    .hero-main { justify-content: space-between; padding-bottom: clamp(1.2rem, 5vh, 2.4rem); }
   }
 
   /* Moments artwork: show the ENTIRE painting, never cropped */
@@ -1078,7 +1091,7 @@ but <span class="ul">focus</span>.</h2>
         btn.disabled = true;
         btn.textContent = "Joining\u2026";
 
-        fetch("https://app.kit.com/forms/" + KIT_FORM_ID + "/subscriptions", {
+        fetch("https://app.convertkit.com/forms/" + KIT_FORM_ID + "/subscriptions", {
           method: "POST",
           headers: { "Accept": "application/json" },
           body: new URLSearchParams({ email_address: val })
