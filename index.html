@@ -326,13 +326,13 @@
   .wl-status { margin-top: clamp(1.3rem, 4vw, 1.8rem); padding-top: clamp(1rem, 3vw, 1.3rem); border-top: 1px solid color-mix(in srgb, var(--ivory) 18%, transparent); font-size: clamp(0.74rem, 2.6vw, 0.84rem); letter-spacing: 0.01em; color: color-mix(in srgb, var(--ivory) 52%, transparent); max-width: 46ch; line-height: 1.55; }
 
   .wl-confirm[hidden] { display: none; }
-  .wl-confirm { max-width: 560px; border-top: 1px solid color-mix(in srgb, var(--ivory) 78%, transparent); padding-top: clamp(1.4rem, 4vw, 1.8rem); }
+  .wl-confirm { max-width: 560px; }
   .wl-confirm .ok {
     font-weight: 700;
     font-size: clamp(1.4rem, 6vw, 2.2rem);
     letter-spacing: -0.02em;
     line-height: 1.05;
-    margin-bottom: 0.7rem;
+    margin-bottom: 0;
   }
   .wl-confirm .ok .dot { color: var(--crimson); }
   .wl-confirm .sub { font-size: clamp(0.78rem, 2.8vw, 0.92rem); color: color-mix(in srgb, var(--ivory) 64%, transparent); line-height: 1.55; }
@@ -1012,7 +1012,6 @@ but <span class="ul">focus</span>.</h2>
 
         <div class="wl-confirm" id="wlConfirm" hidden>
           <div class="ok">You're on the list<span class="dot">.</span></div>
-          <p class="sub mono" style="font-family: Merriweather;">We'll email <b id="wlConfirmEmail">you</b> this summer with early-access pricing.</p>
         </div>
       </div>
       </div>
@@ -1055,9 +1054,10 @@ but <span class="ul">focus</span>.</h2>
   <!-- ===================== WAITLIST LOGIC (vanilla, instant states) ===================== -->
   <script>
     (function () {
-      // ▼▼▼ PASTE YOUR KIT FORM ID HERE (the number from your form's embed URL) ▼▼▼
-      var KIT_FORM_ID = "9556845";
-      // ▲▲▲ e.g. "7654321" ▲▲▲
+      // ▼▼▼ PASTE YOUR SUPABASE PROJECT VALUES HERE (Supabase dashboard → Settings → API) ▼▼▼
+      var SUPABASE_URL = "https://jjcrbocoszoysrxbpupr.supabase.co";
+      var SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpqY3Jib2Nvc3pveXNyeGJwdXByIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEzMjc0NzIsImV4cCI6MjA5NjkwMzQ3Mn0.IvSL5gN7X2L0mOm_OT3so7eVMP1PyfmC7WQwaI8i6DY";
+      // ▲▲▲ The anon key is safe to expose; the table only allows inserts, never reads ▲▲▲
       var STORE = "lucid_waitlist_email";
       var form = document.getElementById("wlForm");
       var input = document.getElementById("wlEmail");
@@ -1096,14 +1096,24 @@ but <span class="ul">focus</span>.</h2>
         btn.disabled = true;
         btn.textContent = "Joining\u2026";
 
-        fetch("https://app.convertkit.com/forms/" + KIT_FORM_ID + "/subscriptions", {
+        fetch(SUPABASE_URL + "/rest/v1/waitlist", {
           method: "POST",
-          mode: "no-cors",
-          body: new URLSearchParams({ email_address: val })
+          headers: {
+            "apikey": SUPABASE_ANON_KEY,
+            "Authorization": "Bearer " + SUPABASE_ANON_KEY,
+            "Content-Type": "application/json",
+            "Prefer": "return=minimal"
+          },
+          body: JSON.stringify({ email: val })
         })
-          .then(function () {
-            try { localStorage.setItem(STORE, val); } catch (e) {}
-            showConfirmed(val);
+          .then(function (r) {
+            // 201 = added, 409 = already on the list — both count as success
+            if (r.ok || r.status === 409) {
+              try { localStorage.setItem(STORE, val); } catch (e) {}
+              showConfirmed(val);
+            } else {
+              throw new Error("HTTP " + r.status);
+            }
           })
           .catch(function () {
             btn.disabled = false;
