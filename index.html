@@ -322,6 +322,7 @@
   }
   .wl-error { color: var(--crimson); }
   .wl-error[hidden] { display: none; }
+  .wl-head[hidden], .wl-status[hidden] { display: none; }
   .wl-status { margin-top: clamp(1.3rem, 4vw, 1.8rem); padding-top: clamp(1rem, 3vw, 1.3rem); border-top: 1px solid color-mix(in srgb, var(--ivory) 18%, transparent); font-size: clamp(0.74rem, 2.6vw, 0.84rem); letter-spacing: 0.01em; color: color-mix(in srgb, var(--ivory) 52%, transparent); max-width: 46ch; line-height: 1.55; }
 
   .wl-confirm[hidden] { display: none; }
@@ -1064,13 +1065,17 @@ but <span class="ul">focus</span>.</h2>
       var note = document.getElementById("wlNote");
       var confirm = document.getElementById("wlConfirm");
       var confirmEmail = document.getElementById("wlConfirmEmail");
+      var wlHead = document.querySelector(".wl-head");
+      var wlStatus = document.querySelector(".wl-status");
       var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
       function showConfirmed(email) {
-        confirmEmail.textContent = email;
+        if (confirmEmail) { confirmEmail.textContent = email; }
         form.setAttribute("hidden", "");
         note.setAttribute("hidden", "");
         error.setAttribute("hidden", "");
+        if (wlHead) { wlHead.setAttribute("hidden", ""); }
+        if (wlStatus) { wlStatus.setAttribute("hidden", ""); }
         confirm.removeAttribute("hidden");
       }
 
@@ -1093,10 +1098,9 @@ but <span class="ul">focus</span>.</h2>
 
         fetch("https://app.convertkit.com/forms/" + KIT_FORM_ID + "/subscriptions", {
           method: "POST",
-          headers: { "Accept": "application/json" },
+          mode: "no-cors",
           body: new URLSearchParams({ email_address: val })
         })
-          .then(function (r) { if (!r.ok) { throw new Error("bad response"); } return r.json().catch(function () { return {}; }); })
           .then(function () {
             try { localStorage.setItem(STORE, val); } catch (e) {}
             showConfirmed(val);
