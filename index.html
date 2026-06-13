@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- Device switch: phones get the dedicated mobile layout. Add ?nr to any URL to disable. -->
+<script>(function(){try{if(/[?&]nr\b/.test(location.search))return;if(window.matchMedia&&window.matchMedia("(max-width: 768px)").matches){location.replace("mobile.html"+location.hash);}}catch(e){}})();</script>
 <title>Lucid Gum — Coming Summer 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
