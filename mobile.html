@@ -5,500 +5,490 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <!-- Device switch: wide screens get the desktop layout. Add ?nr to any URL to disable. -->
 <script>(function(){try{if(/[?&]nr\b/.test(location.search))return;if(window.matchMedia&&window.matchMedia("(min-width: 769px)").matches){location.replace("index.html"+location.hash);}}catch(e){}})();</script>
-<title>Lucid Gum — Launching Summer 2026</title>
-<meta name="description" content="Lucid Gum — clean, intense focus you chew. Three lab-grade actives that climb and hold, no crash. Launching Summer 2026 — get on the early-access list." />
-<meta name="theme-color" content="#0A0806" />
+<script>
+  document.documentElement.classList.add('js');
+  /* Pin hero height to the ACTUAL visible viewport. svh/vh are unreliable in
+     embedded previews and shift with mobile toolbars, which would drop the
+     sun's horizon below the fold. --vh tracks the real visible height. */
+  (function () {
+    function setVH() {
+      var h = (window.visualViewport && window.visualViewport.height) ? window.visualViewport.height : window.innerHeight;
+      if (h) { document.documentElement.style.setProperty('--vh', h + 'px'); }
+    }
+    setVH();
+    window.addEventListener('resize', setVH);
+    if (window.visualViewport) { window.visualViewport.addEventListener('resize', setVH); }
+  })();
+</script>
+<title>Lucid — The Future of Focus</title>
+<meta name="description" content="Clean, intense focus you can chew anywhere — instantly. Three lab-grade actives that climb and hold, no crash. The future of focus." />
+<meta name="theme-color" content="#F2EEE4" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="Lucid" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 <link rel="manifest" href="site.webmanifest" />
-<meta name="apple-mobile-web-app-title" content="Lucid Gum" />
 
-<!-- Social link previews (Instagram / TikTok / LinkedIn / iMessage).
-     NOTE: og:url and image URLs must be ABSOLUTE. Confirm the production
-     domain + path below before launch (currently assumes lucidgum.co). -->
+<!-- Social link previews. NOTE: production domain assumed lucidgum.co — confirm before launch. -->
 <meta property="og:type" content="website" />
-<meta property="og:site_name" content="Lucid Gum" />
-<meta property="og:title" content="Lucid Gum — Clean. Intense. Focus." />
-<meta property="og:description" content="Focus you chew. Three actives that climb and hold — no crash. Launching Summer 2026. Get on the early-access list." />
-<meta property="og:image" content="https://lucidgum.co/uploads/hf_20260612_163742_86f001d1-6e6b-432b-8e38-f26a0ff1a06b.jpg" />
-<meta property="og:image:alt" content="Lucid — Focus &amp; Clarity gum blister packs" />
+<meta property="og:site_name" content="Lucid" />
+<meta property="og:title" content="Lucid — The Future of Focus" />
+<meta property="og:description" content="Clean, intense focus you can chew anywhere — instantly. No water, no wait, no crash." />
+<meta property="og:image" content="https://lucidgum.co/assets/lucid-pack-multi.png" />
+<meta property="og:image:alt" content="Lucid Gum — Intense Focus packs" />
 <meta property="og:url" content="https://lucidgum.co/" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Lucid Gum — Clean. Intense. Focus." />
-<meta name="twitter:description" content="Focus you chew. Three actives that climb and hold — no crash. Get on the early-access list." />
-<meta name="twitter:image" content="https://lucidgum.co/uploads/hf_20260612_163742_86f001d1-6e6b-432b-8e38-f26a0ff1a06b.jpg" />
+<meta name="twitter:title" content="Lucid — The Future of Focus" />
+<meta name="twitter:description" content="Focus you chew. Three actives that climb and hold — no crash." />
+<meta name="twitter:image" content="https://lucidgum.co/assets/lucid-pack-multi.png" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Comfortaa:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Audiowide&family=Comfortaa:wght@500;600;700&display=swap" rel="stylesheet" />
 <style>
+  /* ============================================================
+     LUCID — "Solar" retro-future, tuned for mobile.
+     Cream paper · stepped rising-sun · ink text · warm dark plates.
+     Comfortaa wordmark · Audiowide headline · Archivo body.
+     ============================================================ */
   :root {
-    --ivory: #F2EEE4;
-    --ink: #0A0806;
-    --maroon: #7C151E;   /* crimson on light surfaces */
-    --crimson: #DC2A2F;  /* brighter crimson on dark */
-    --pad: clamp(1.5rem, 7vw, 2.4rem);
+    --cream:   #F2EEE4;
+    --cream-2: #F8F4EA;
+    --ink:     #1A140E;
+    --ink-2:   #5C5347;
+    --red:     #C0391F;
+    --oxblood: #7C151E;
+    --orange:  #E0682E;
+    --amber:   #E7A53A;
+    --gold:    #F6C453;
+    --accent:   #E08A33;   /* warm amber-orange for dark plates */
+    --accent-2: #EFA24E;
+
+    --sans:  "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --round: "Audiowide", "Comfortaa", system-ui, sans-serif;
+    --brand: "Comfortaa", system-ui, sans-serif;
+
+    --pad:  clamp(1.4rem, 6vw, 2rem);
     --maxw: 600px;
+    --band: linear-gradient(90deg, var(--gold) 0 20%, var(--amber) 20% 40%, var(--orange) 40% 60%, var(--red) 60% 80%, var(--oxblood) 80% 100%);
   }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
+  * { box-sizing: border-box; margin: 0; padding: 0; }
   html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  html { background: #C8C0AF; }   /* muted warm backdrop — frames the phone column on wide screens */
   body {
-    background: var(--ink);
-    color: var(--ivory);
-    font-family: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
+    background: var(--cream); color: var(--ink);
+    font-family: var(--sans); font-size: 17px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
     overflow-x: hidden;
+    max-width: 480px; margin-inline: auto;
+    box-shadow: 0 0 0 1px rgba(26,20,14,.05), 0 24px 70px -28px rgba(26,20,14,.45);
   }
   img { display: block; max-width: 100%; }
-  a { color: inherit; }
+  a { color: inherit; text-decoration: none; }
 
-  /* Hard edges everywhere except deliberately-round elements (pills) */
-  section, .effect, .scene, .chart, .wl-media img, .moments-media img, .hero-shot img { border-radius: 0; }
-
-  .mono { font-family: "Merriweather", Georgia, "Times New Roman", serif; font-weight: 400; }
-
-  /* ── section shell: full-bleed bg, centered content column ── */
+  /* ── band shell: full-bleed background, centered content column ── */
   .band { width: 100%; }
-  .band > .inner { max-width: var(--maxw); margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
-  .ink   { background: var(--ink);   color: var(--ivory); }
-  .ivory { background: var(--ivory); color: var(--ink); }
+  .band > .inner { max-width: var(--maxw); margin: 0 auto; padding-inline: var(--pad); }
+  .cream { background: var(--cream); color: var(--ink); }
+  .ink   { background: var(--ink);   color: var(--cream); }
+  .section > .inner { padding-top: clamp(3.2rem, 12vw, 4.8rem); padding-bottom: clamp(3.2rem, 12vw, 4.8rem); }
 
-  .eyebrow {
-    font-family: "Merriweather", Georgia, serif;
-    font-size: 0.82rem;
-    letter-spacing: 0.02em;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.7em;
-    line-height: 1.3;
-  }
-  .marker { width: 0.5em; height: 0.5em; background: var(--crimson); display: inline-block; flex: none; }
-  .ivory .marker { background: var(--maroon); }
-  .dot { color: var(--crimson); }
-  .ivory .dot { color: var(--maroon); }
-  .ul { text-decoration: underline; text-decoration-color: currentColor; text-decoration-thickness: 0.055em; text-underline-offset: 0.12em; }
-  .ivory .ul { text-decoration-color: var(--maroon); }
-  .ink .ul { text-decoration-color: var(--crimson); }
+  .sun-rule { height: 6px; border: 0; margin: 0; background-image: var(--band); }
 
-  /* ════════════════ HERO (ivory, desktop-matched) ════════════════ */
-  .hero { position: relative; overflow: hidden; }
-  .hero .inner {
-    padding-top: calc(env(safe-area-inset-top, 0px) + clamp(1.7rem, 6vw, 2.4rem));
-    padding-bottom: clamp(2.4rem, 9vw, 3.4rem);
+  /* ── shared marks ── */
+  .kicker {
+    font-family: var(--sans); font-size: clamp(.72rem, 3.2vw, .8rem); font-weight: 700;
+    letter-spacing: .17em; text-transform: uppercase; color: var(--red);
+    display: inline-flex; align-items: center; gap: .65em;
   }
-  .hero-copy { margin-top: clamp(2.2rem, 9vw, 3.4rem); }
+  .kicker::before {
+    content: ""; width: 1.7em; height: .58em; flex: none; border-radius: 1px; background-image: var(--band);
+  }
+  .ink .kicker { color: var(--accent); }
+  .ink .kicker::before { opacity: .95; }
+
+  .section-title {
+    font-family: var(--sans); font-weight: 700; font-size: clamp(1.9rem, 8vw, 2.6rem);
+    line-height: 1.06; letter-spacing: -.02em; text-wrap: balance;
+    margin-top: clamp(.9rem, 3.5vw, 1.3rem);
+  }
+  .section-title em { font-style: normal; color: var(--red); }
+  .ink .section-title { color: var(--cream); }
+  .ink .section-title em { color: var(--accent); }
+
+  /* ============================================================
+     HERO — type up top, rising sun arcing across the base
+     ============================================================ */
+  .hero { position: relative; overflow: hidden; min-height: 100svh; min-height: var(--vh, 100svh); display: flex; flex-direction: column; --sun-w: min(96vw, 440px); }
+  .hero > .inner { position: relative; z-index: 3; flex: 1; display: flex; flex-direction: column; }
 
   .topbar {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 1rem;
-    padding-bottom: clamp(1rem, 3.5vw, 1.4rem);
-    border-bottom: 1px solid color-mix(in srgb, var(--ink) 20%, transparent);
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding-top: calc(env(safe-area-inset-top, 0px) + clamp(1.1rem, 4vw, 1.6rem));
+    padding-bottom: clamp(.9rem, 3vw, 1.3rem);
+    border-bottom: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
   }
   .wordmark {
-    font-family: "Comfortaa", sans-serif;
-    font-weight: 500;
-    color: var(--maroon);
-    font-size: clamp(1.45rem, 6.5vw, 1.8rem);
-    line-height: 1;
-    white-space: nowrap;
+    font-family: var(--brand); font-weight: 700; font-size: clamp(1.3rem, 5.6vw, 1.55rem);
+    color: var(--oxblood); display: inline-flex; align-items: center; gap: .42em; line-height: 1; white-space: nowrap;
   }
-  .topbar .coming {
-    font-size: 0.72rem;
-    letter-spacing: 0.02em;
-    color: color-mix(in srgb, var(--ink) 60%, transparent);
-    text-align: right;
-    white-space: nowrap;
-  }
+  .sun-dot { width: .6em; height: .6em; border-radius: 50%; background: radial-gradient(circle at 34% 32%, var(--gold), var(--red) 78%); display: inline-block; flex: none; }
+  .top-meta { font-size: .8rem; font-weight: 600; letter-spacing: .02em; color: var(--ink-2); white-space: nowrap; }
 
-  /* product shot — elevated parallax card */
-  .hero-shot {
-    position: relative;
-    margin: clamp(2rem, 8vw, 2.8rem) 0 0;
-    height: clamp(300px, 46svh, 460px);
-    overflow: hidden;
-    background: #000;
-    box-shadow: 0 22px 48px -18px rgba(10,8,6,0.5), 0 6px 16px -8px rgba(10,8,6,0.3);
+  .hero-content {
+    flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center;
+    text-align: center;
+    padding-top: clamp(1.2rem, 5vw, 2rem);
+    /* reserve the sun's height (67vw) + a gap so the headline crowns the sun */
+    padding-bottom: calc(var(--sun-w) * 0.8 + clamp(1.6rem, 5vw, 2.2rem));
   }
-  .hero-shot img {
-    position: absolute; left: 0; top: 0;
-    width: 100%; height: 132%;
-    object-fit: cover; object-position: center;
-    will-change: transform;
+  .eyebrow {
+    font-family: var(--sans); font-size: clamp(.72rem, 3.2vw, .82rem); font-weight: 700;
+    letter-spacing: .15em; text-transform: uppercase; color: var(--red);
   }
-  @media (prefers-reduced-motion: reduce) {
-    .hero-shot img { height: 100%; transform: none !important; }
-  }
-
-  .hero-eyebrow {
-    font-family: "Merriweather", Georgia, serif;
-    display: inline-flex; align-items: center; gap: 0.5em;
-    color: var(--maroon);
-    font-size: clamp(1.55rem, 7vw, 2.1rem);
-    line-height: 1.1;
-    margin-bottom: clamp(0.9rem, 4vw, 1.3rem);
-  }
-  .hero-eyebrow .marker { width: 0.4em; height: 0.4em; background: var(--maroon); }
-  .hero-eyebrow .flicker { animation: flicker 4.5s linear infinite; }
-  @keyframes flicker {
-    0%, 38%, 100% { opacity: 1; }
-    39% { opacity: 0.3; }
-    40% { opacity: 1; }
-    41% { opacity: 0.2; }
-    42% { opacity: 0.85; }
-    43% { opacity: 0.35; }
-    44%, 70% { opacity: 1; }
-    71% { opacity: 0.4; }
-    72% { opacity: 1; }
-  }
-
-  .headline {
-    font-weight: 800;
-    line-height: 0.84;
-    letter-spacing: -0.035em;
-    font-size: clamp(3.2rem, 16.5vw, 5rem);
-    text-wrap: balance;
-  }
-  .headline .line { display: block; }
-
-  .hero-promise {
-    font-weight: 700;
-    font-size: clamp(1.35rem, 5.6vw, 1.8rem);
-    letter-spacing: -0.02em;
-    margin-top: clamp(0.9rem, 3.5vw, 1.3rem);
+  .hero-head {
+    font-family: var(--round); font-weight: 400; text-transform: uppercase;
+    font-size: clamp(2.4rem, 13vw, 3.5rem); line-height: 1.04; letter-spacing: .004em;
+    color: var(--ink); margin-top: clamp(1rem, 4vw, 1.5rem);
   }
   .hero-sub {
-    margin-top: clamp(0.8rem, 3vw, 1.1rem);
-    font-size: 0.95rem;
-    line-height: 1.55;
-    color: color-mix(in srgb, var(--ink) 64%, transparent);
-    max-width: 38ch;
+    font-size: clamp(1rem, 3.9vw, 1.12rem); line-height: 1.55; color: var(--ink-2);
+    max-width: 33ch; margin: clamp(1rem, 4vw, 1.4rem) auto 0;
   }
-
-  /* CTA pill — maroon outline (desktop) */
-  .cta {
-    display: inline-flex; align-items: center; justify-content: center; gap: 0.55em;
-    white-space: nowrap;
-    margin-top: clamp(1.3rem, 5vw, 1.8rem);
-    padding: 0.95em 1.6em;
-    min-height: 52px;
-    border: 1.5px solid var(--maroon);
-    border-radius: 999px;
-    background: var(--maroon);
-    color: var(--ivory);
-    font-weight: 600;
-    font-size: 1.02rem;
-    letter-spacing: 0.01em;
-    text-decoration: none;
+  .btn {
+    font-family: var(--sans); font-weight: 700; font-size: .95rem; letter-spacing: .02em;
+    background: var(--ink); color: var(--cream); padding: 1rem 1.7rem; border-radius: 999px;
+    display: inline-flex; align-items: center; justify-content: center; gap: .55em; min-height: 52px;
+    margin-top: clamp(1.3rem, 5vw, 1.9rem);
     -webkit-tap-highlight-color: transparent;
-    box-shadow: 0 12px 24px -14px rgba(124,21,30,0.65);
-    transition: transform 0.15s ease, background-color 0.18s ease, box-shadow 0.18s ease;
+    transition: background-color .18s ease, gap .18s ease, transform .12s ease;
   }
-  .cta .arrow { font-weight: 700; }
-  .cta:hover { background: #5e0f16; box-shadow: 0 14px 28px -14px rgba(124,21,30,0.7); }
-  .cta:active { transform: translateY(1px) scale(0.99); }
+  .btn span { transition: transform .18s ease; }
+  .btn:hover { background: var(--oxblood); gap: .8em; }
+  .btn:hover span { transform: translateX(2px); }
+  .btn:active { transform: translateY(1px); }
 
-  /* ════════════════ shared section heads ════════════════ */
-  .band.section .inner { padding-top: clamp(4.6rem, 17vw, 7rem); padding-bottom: clamp(4.6rem, 17vw, 7rem); }
-  .sec-eyebrow { margin-bottom: clamp(1.8rem, 7vw, 2.6rem); }
-  .sec-head {
-    font-weight: 800;
-    font-size: clamp(2rem, 9vw, 3rem);
-    line-height: 1.0;
-    letter-spacing: -0.03em;
-    text-wrap: balance;
+  /* the sun — stepped flat warm bands, half-disc rising from the horizon */
+  .horizon { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%) translateY(20%); z-index: 1; width: var(--sun-w); pointer-events: none; }
+  .sun {
+    width: 100%; aspect-ratio: 1 / 1; border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%,
+      #FDEEBE 0%, var(--gold) 15%, var(--amber) 33%, var(--orange) 53%, var(--red) 73%, var(--oxblood) 100%);
+    box-shadow: 0 0 90px 14px rgba(241,173,74,.42), 0 0 34px 2px rgba(247,196,83,.5);
   }
-  .ink .sec-eyebrow { color: var(--crimson); }
-  .ivory .sec-eyebrow { color: var(--maroon); }
 
-  /* ════════════════ PILLARS (ivory) ════════════════ */
-  .pillars .sec-head { max-width: 14ch; margin-bottom: clamp(2.2rem, 8vw, 3rem); }
-  .pillar {
-    border-top: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
-    padding-top: clamp(1.5rem, 5vw, 2rem);
-    padding-bottom: clamp(2.2rem, 7vw, 2.8rem);
+  /* ============================================================
+     THESIS (cream)
+     ============================================================ */
+  .thesis-media { margin-top: clamp(1.8rem, 7vw, 2.6rem); }
+  .thesis-media img { width: 100%; }
+  .thesis-grid { margin-top: clamp(1.8rem, 7vw, 2.4rem); }
+  .thesis-item {
+    border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+    padding-top: clamp(1.1rem, 4vw, 1.4rem); padding-bottom: clamp(1.4rem, 5vw, 1.8rem);
   }
-  .pillar:last-child { padding-bottom: 0; }
-  .pillar-num { font-family: "Merriweather", serif; font-size: 0.84rem; color: var(--maroon); letter-spacing: 0.06em; margin-bottom: 0.8rem; }
-  .pillar-title { font-weight: 700; font-size: clamp(1.35rem, 6vw, 1.7rem); letter-spacing: -0.02em; line-height: 1.08; margin-bottom: 0.6rem; }
-  .pillar-body { font-size: 1rem; line-height: 1.5; color: color-mix(in srgb, var(--ink) 66%, transparent); }
+  .thesis-item:last-child { padding-bottom: 0; }
+  .t-no { font-family: var(--round); font-size: clamp(1.05rem, 4.5vw, 1.3rem); color: var(--red); margin-bottom: .7rem; }
+  .t-title { font-family: var(--sans); font-weight: 700; font-size: clamp(1.15rem, 5vw, 1.4rem); letter-spacing: -.01em; margin-bottom: .5rem; }
+  .t-body { color: var(--ink-2); line-height: 1.55; }
 
-  /* ════════════════ MOMENTS (ink, editorial) ════════════════ */
-  .moments-media { margin: 0 0 clamp(2.4rem, 9vw, 3.4rem); }
-  .moments-media img { width: 100%; height: auto; border: 1px solid color-mix(in srgb, var(--ivory) 24%, transparent); }
-  .moments-credit { margin-top: 0.9rem; font-size: 0.78rem; letter-spacing: 0.02em; color: color-mix(in srgb, var(--ivory) 46%, transparent); }
-  .moments .sec-head { margin-bottom: clamp(1.6rem, 6vw, 2.2rem); }
-  .scenes { display: flex; flex-direction: column; gap: clamp(1.6rem, 5vw, 2.2rem); }
-  .scene {
-    position: relative;
-    padding-left: 1.1rem;
-    border-left: 2px solid color-mix(in srgb, var(--crimson) 70%, transparent);
-    font-size: 1.05rem;
-    line-height: 1.68;
-    color: color-mix(in srgb, var(--ivory) 82%, transparent);
-  }
-  .scene-lock { color: var(--crimson); font-weight: 700; white-space: nowrap; }
-  .moments-foot { margin-top: clamp(1.6rem, 5vw, 2.2rem); font-size: 1rem; line-height: 1.5; color: color-mix(in srgb, var(--ivory) 62%, transparent); }
+  /* ============================================================
+     MOMENTS (ink, warm dark plate)
+     ============================================================ */
+  .scenes { margin-top: clamp(1.8rem, 7vw, 2.4rem); display: flex; flex-direction: column; gap: clamp(1.4rem, 5vw, 2rem); }
+  .scene { border-left: 3px solid var(--amber); padding-left: clamp(1rem, 4vw, 1.3rem); }
+  .scene-no { font-family: var(--round); color: var(--amber); font-size: 1.02rem; }
+  .scene p { font-size: clamp(1.05rem, 4.3vw, 1.2rem); line-height: 1.5; color: var(--cream); margin-top: .5rem; }
+  .moments-foot { margin-top: clamp(1.6rem, 6vw, 2.2rem); font-size: clamp(1.04rem, 4.2vw, 1.18rem); color: color-mix(in srgb, var(--cream) 64%, transparent); font-style: italic; }
 
-  /* ════════════════ FEEL (ivory) + chart ════════════════ */
-  .feel .sec-head { max-width: 16ch; margin-bottom: clamp(1.4rem, 5vw, 2rem); }
-  .feel-lede { font-size: 1.04rem; line-height: 1.66; color: color-mix(in srgb, var(--ink) 74%, transparent); margin-bottom: 1.2rem; }
-  .feel-lede:last-of-type { margin-bottom: 0; }
+  /* ============================================================
+     FEEL (cream) + redrawn solar chart + research
+     ============================================================ */
+  .feel-copy { margin-top: clamp(1.4rem, 5vw, 1.9rem); }
+  .feel-copy p { font-size: clamp(1rem, 3.9vw, 1.12rem); line-height: 1.62; color: var(--ink-2); margin-bottom: 1rem; }
+  .feel-copy p:last-child { margin-bottom: 0; }
+  .feel-copy .em { color: var(--red); font-weight: 600; }
 
-  .chart {
-    margin-top: clamp(2.6rem, 9vw, 3.4rem);
-    padding-top: clamp(1.8rem, 6vw, 2.2rem);
-    border-top: 1px solid color-mix(in srgb, var(--ink) 20%, transparent);
-  }
-  .chart-title { font-family: "Merriweather", serif; font-size: 0.82rem; letter-spacing: 0.02em; color: color-mix(in srgb, var(--ink) 70%, transparent); margin-bottom: 1rem; }
-  .chart svg { width: 100%; height: auto; display: block; }
-  .chart-legend { display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; margin-top: 1rem; }
-  .leg { display: inline-flex; align-items: center; gap: 0.5em; font-family: "Merriweather", serif; font-size: 0.8rem; color: color-mix(in srgb, var(--ink) 72%, transparent); }
-  .leg .swatch { width: 1.4em; height: 0; border-top-width: 2.5px; border-top-style: solid; }
-  .leg.lucid .swatch { border-top-color: var(--maroon); }
-  .leg.caf .swatch { border-top-color: color-mix(in srgb, var(--ink) 45%, transparent); border-top-style: dashed; }
+  .chart { margin-top: clamp(2.2rem, 8vw, 3rem); border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent); background: var(--cream-2); overflow: hidden; }
+  .chart::before { content: ""; display: block; height: 5px; background-image: var(--band); }
+  .chart-bar { display: flex; align-items: center; justify-content: space-between; gap: .8rem; flex-wrap: wrap; padding: .75rem 1rem; border-bottom: 1px solid color-mix(in srgb, var(--ink) 12%, transparent); }
+  .chart-tag { font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); }
+  .chart-legend { display: flex; gap: .9rem; }
+  .leg { display: inline-flex; align-items: center; gap: .4em; font-size: .62rem; font-weight: 600; letter-spacing: .03em; text-transform: uppercase; color: var(--ink-2); }
+  .leg i { width: 15px; height: 3px; border-radius: 2px; display: inline-block; flex: none; }
+  .chart-svg { padding: 1rem 1rem .4rem; }
+  .chart-svg svg { width: 100%; height: auto; display: block; }
+  .chart-cap { padding: 0 1rem 1rem; font-size: .73rem; color: var(--ink-2); }
 
-  /* research refs */
-  .research { margin-top: clamp(2.6rem, 9vw, 3.4rem); padding-top: clamp(1.6rem, 6vw, 2.2rem); border-top: 1px solid color-mix(in srgb, var(--ink) 20%, transparent); }
-  .research-eyebrow { margin-bottom: 1.2rem; color: var(--maroon); }
-  .refs { list-style: none; display: flex; flex-direction: column; gap: clamp(1.1rem, 4vw, 1.5rem); margin-top: 1.4rem; }
-  .refs li { display: flex; flex-direction: column; gap: 0.4rem; }
-  .ref-finding { font-size: 0.98rem; line-height: 1.5; color: color-mix(in srgb, var(--ink) 80%, transparent); }
-  .ref-src { font-family: "Merriweather", serif; font-size: 0.78rem; letter-spacing: 0.01em; color: var(--maroon); text-decoration: none; }
+  .research { margin-top: clamp(2.4rem, 9vw, 3.2rem); padding-top: clamp(1.7rem, 6vw, 2.2rem); border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent); }
+  .research-lede { margin-top: 1rem; font-size: clamp(1rem, 3.9vw, 1.1rem); line-height: 1.55; color: var(--ink); }
+  .refs { list-style: none; margin-top: 1.4rem; display: flex; flex-direction: column; gap: clamp(1.1rem, 4vw, 1.4rem); }
+  .ref-finding { font-size: clamp(.96rem, 3.7vw, 1.04rem); line-height: 1.5; color: var(--ink-2); }
+  .ref-src { display: inline-block; margin-top: .35rem; font-size: .82rem; font-weight: 600; color: var(--red); word-break: break-word; }
   .ref-src:hover { text-decoration: underline; }
-  .refs-note { font-family: "Merriweather", serif; font-size: 0.88rem; line-height: 1.6; color: color-mix(in srgb, var(--ink) 72%, transparent); }
 
-  /* ════════════════ FORMULA actives (ink) ════════════════ */
-  .formula .sec-head { font-size: clamp(1.9rem, 8vw, 2.6rem); }
-  .formula-lede { margin-top: clamp(1.2rem, 4vw, 1.6rem); font-size: 1.02rem; line-height: 1.6; color: color-mix(in srgb, var(--ivory) 72%, transparent); }
-  .effects { margin-top: clamp(2.4rem, 9vw, 3.2rem); display: flex; flex-direction: column; }
-  .effect {
-    display: grid; grid-template-columns: 72px 1fr; gap: 1.3rem; align-items: center;
-    border-top: 1px solid color-mix(in srgb, var(--ivory) 15%, transparent);
-    padding: clamp(1.5rem, 5vw, 1.9rem) 0;
+  /* ============================================================
+     FORMULA (cream) — three actives
+     ============================================================ */
+  .formula-lede { font-size: clamp(1.04rem, 4.1vw, 1.18rem); line-height: 1.5; color: var(--ink); margin-top: clamp(.9rem, 3.5vw, 1.2rem); }
+  .mol-list { margin-top: clamp(2rem, 8vw, 2.8rem); display: flex; flex-direction: column; }
+  .mol-item {
+    display: grid; grid-template-columns: 84px 1fr; gap: 1.2rem; align-items: center;
+    border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+    padding: clamp(1.3rem, 5vw, 1.7rem) 0;
   }
-  .effect:first-of-type { border-top: 0; padding-top: 0; }
-  .effect-fig { width: 72px; height: 72px; display: grid; place-items: center; }
-  .effect-fig img { width: 100%; height: 100%; object-fit: contain; filter: invert(1); opacity: 0.92; }
-  .effect-name { font-weight: 700; font-size: 1.12rem; letter-spacing: -0.01em; display: flex; align-items: baseline; gap: 0.5em; flex-wrap: wrap; }
-  .effect-mg { font-family: "Merriweather", serif; font-weight: 400; font-size: 0.82rem; color: var(--crimson); }
-  .effect-body { margin-top: 0.3rem; font-size: 0.92rem; line-height: 1.45; color: color-mix(in srgb, var(--ivory) 62%, transparent); }
-  .formula-sub { margin-top: clamp(1.4rem, 5vw, 2rem); font-family: "Merriweather", serif; font-size: 0.84rem; letter-spacing: 0.02em; color: color-mix(in srgb, var(--ivory) 56%, transparent); text-align: center; }
+  .mol-item:first-child { border-top: 0; padding-top: 0; }
+  .mol-fig { width: 84px; height: 84px; display: flex; align-items: center; justify-content: center; }
+  .mol-fig img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .mol-name { font-family: var(--sans); font-weight: 700; font-size: clamp(1.1rem, 4.6vw, 1.3rem); display: flex; align-items: baseline; gap: .5em; flex-wrap: wrap; }
+  .mol-mg { font-family: var(--round); font-size: .76rem; color: var(--red); }
+  .mol-body { color: var(--ink-2); margin-top: .3rem; line-height: 1.5; }
+  .formula-sub { margin-top: clamp(1.6rem, 6vw, 2.2rem); font-size: .76rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); }
 
-  /* ════════════════ WAITLIST (ink, conversion) ════════════════ */
-  .waitlist { scroll-margin-top: 0; }
-  .wl-media { margin: 0 0 clamp(2.4rem, 8vw, 3.2rem); }
-  .wl-media img { width: 100%; height: auto; max-height: 56svh; object-fit: contain; margin: 0 auto; }
-  .wl-eyebrow { color: var(--crimson); margin-bottom: clamp(1.2rem, 4vw, 1.6rem); }
-  .wl-head { font-weight: 700; font-size: clamp(2.2rem, 10vw, 3.2rem); line-height: 0.96; letter-spacing: -0.03em; margin-bottom: clamp(1.6rem, 6vw, 2.2rem); max-width: 14ch; text-wrap: balance; }
-
-  form.wl-form { display: flex; flex-direction: column; gap: 0; border: 1px solid color-mix(in srgb, var(--ivory) 60%, transparent); }
-  form.wl-form[hidden], .wl-note[hidden] { display: none !important; }
-  .wl-form input[type="email"] {
-    border: none; background: transparent; color: var(--ivory);
-    font-family: "Archivo", sans-serif; font-size: 1.05rem; letter-spacing: 0.01em;
-    padding: 1.1rem 1.2rem; outline: none;
+  /* ============================================================
+     WAITLIST (ink) — product + form
+     ============================================================ */
+  .wl-media { margin-bottom: clamp(2rem, 8vw, 2.8rem); }
+  .wl-media img { width: 100%; border-radius: 16px; border: 1px solid color-mix(in srgb, var(--cream) 16%, transparent); box-shadow: 0 26px 54px -18px rgba(0,0,0,.55); }
+  .wl-head { margin-top: clamp(.9rem, 3.5vw, 1.2rem); }
+  .wl-form { display: flex; flex-direction: column; gap: .6rem; margin-top: clamp(1.6rem, 6vw, 2.2rem); }
+  .wl-form input {
+    font-family: var(--sans); font-size: 1.05rem; padding: 1.05rem 1.2rem; min-height: 54px;
+    background: color-mix(in srgb, var(--cream) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--cream) 30%, transparent); border-radius: 999px; color: var(--cream);
   }
-  .wl-form input[type="email"]::placeholder { color: color-mix(in srgb, var(--ivory) 42%, transparent); }
+  .wl-form input::placeholder { color: color-mix(in srgb, var(--cream) 44%, transparent); }
+  .wl-form input:focus { outline: none; border-color: var(--accent); }
   .wl-form button {
-    border: none; border-top: 1px solid color-mix(in srgb, var(--ivory) 60%, transparent);
-    background: var(--crimson); color: var(--ivory);
-    font-family: "Archivo", sans-serif; font-weight: 600; font-size: 1.02rem; letter-spacing: 0.01em;
-    padding: 1.1rem 1.3rem; cursor: pointer; min-height: 54px;
-    -webkit-tap-highlight-color: transparent;
-    transition: background-color 0.16s ease, color 0.16s ease;
+    font-family: var(--sans); font-weight: 700; font-size: 1rem; padding: 1.05rem 1.6rem; min-height: 54px;
+    background: var(--accent); color: var(--ink); border: 1px solid var(--accent); border-radius: 999px; cursor: pointer;
+    -webkit-tap-highlight-color: transparent; transition: background-color .18s ease;
   }
-  .wl-form button:hover { background: var(--ivory); color: var(--ink); }
-  .wl-form button:active { transform: translateY(1px); }
-  .wl-form.invalid { border-color: var(--crimson); }
-
-  .wl-note { margin-top: 1.1rem; font-family: "Merriweather", serif; font-size: 0.86rem; line-height: 1.55; color: color-mix(in srgb, var(--ivory) 60%, transparent); }
-  .wl-error { color: var(--crimson); font-family: "Merriweather", serif; font-size: 0.84rem; margin-top: 0.8rem; }
+  .wl-form button:hover { background: var(--accent-2); border-color: var(--accent-2); }
+  .wl-form.invalid input { border-color: var(--red); }
+  .wl-form[hidden] { display: none !important; }
+  .wl-error { color: var(--accent-2); font-size: .85rem; margin-top: .8rem; }
   .wl-error[hidden] { display: none; }
+  .wl-note { color: color-mix(in srgb, var(--cream) 58%, transparent); font-size: .85rem; margin-top: 1rem; line-height: 1.5; }
+  .wl-note[hidden] { display: none; }
+  .wl-status { color: color-mix(in srgb, var(--cream) 56%, transparent); font-size: .82rem; margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid color-mix(in srgb, var(--cream) 18%, transparent); line-height: 1.5; }
   .wl-head[hidden], .wl-status[hidden] { display: none; }
-  .wl-status { margin-top: 1.4rem; padding-top: 1.1rem; border-top: 1px solid color-mix(in srgb, var(--ivory) 18%, transparent); font-family: "Merriweather", serif; font-size: 0.82rem; line-height: 1.55; color: color-mix(in srgb, var(--ivory) 52%, transparent); }
-
   .wl-confirm[hidden] { display: none; }
-  .wl-confirm { border-top: 1px solid color-mix(in srgb, var(--ivory) 60%, transparent); padding-top: clamp(1.4rem, 5vw, 1.8rem); }
-  .wl-confirm .ok { font-weight: 700; font-size: clamp(1.6rem, 7vw, 2.2rem); letter-spacing: -0.02em; line-height: 1.05; margin-bottom: 0.6rem; }
-  .wl-confirm .sub { font-family: "Merriweather", serif; font-size: 0.92rem; color: color-mix(in srgb, var(--ivory) 64%, transparent); line-height: 1.55; }
-  .wl-confirm .sub b { color: var(--ivory); font-weight: 700; }
+  .wl-confirm .ok { font-family: var(--sans); font-weight: 700; font-size: clamp(1.5rem, 7vw, 2rem); letter-spacing: -.01em; color: var(--cream); }
+  .wl-confirm .sub { color: color-mix(in srgb, var(--cream) 64%, transparent); margin-top: .6rem; line-height: 1.5; }
+  .wl-confirm .sub b { color: var(--cream); font-weight: 700; }
 
-  /* ════════════════ CONTACT (ivory) ════════════════ */
-  .contact .sec-eyebrow { margin-bottom: clamp(1.8rem, 6vw, 2.6rem); }
-  .fs-list { display: flex; flex-direction: column; gap: clamp(1.5rem, 5vw, 2.1rem); }
-  .fs-item { display: flex; flex-direction: column; gap: 0.4rem; }
-  .fs-role { font-family: "Merriweather", serif; font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.1em; color: color-mix(in srgb, var(--ink) 48%, transparent); }
-  .fs-email { font-weight: 600; font-size: clamp(1.2rem, 5.5vw, 1.5rem); letter-spacing: -0.01em; color: var(--maroon); text-decoration: none; word-break: break-word; }
-  .fs-email:hover { text-decoration: underline; }
+  /* ============================================================
+     CONTACT (ink)
+     ============================================================ */
+  .contact-list { margin-top: clamp(1.6rem, 6vw, 2.2rem); display: flex; flex-direction: column; gap: clamp(1.2rem, 5vw, 1.7rem); }
+  .contact-item { display: flex; flex-direction: column; gap: .35rem; border-top: 1px solid color-mix(in srgb, var(--cream) 16%, transparent); padding-top: 1rem; }
+  .contact-role { font-size: .72rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: color-mix(in srgb, var(--cream) 56%, transparent); }
+  .contact-email { font-family: var(--sans); font-weight: 700; font-size: clamp(1.1rem, 5vw, 1.35rem); color: var(--accent); word-break: break-word; }
+  .contact-email:hover { color: var(--cream); }
 
-  /* ════════════════ FOOTER + SOCIAL (ink) ════════════════ */
-  .footer .inner { padding-top: clamp(2.4rem, 8vw, 3rem); padding-bottom: clamp(1.4rem, 5vw, 1.8rem); }
-  .footer .wordmark { color: var(--crimson); font-size: 1.4rem; margin-bottom: 1.4rem; }
-  .social { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.4rem; margin-bottom: 1.4rem; }
-  .social a { font-family: "Merriweather", serif; font-size: 0.86rem; letter-spacing: 0.02em; color: color-mix(in srgb, var(--ivory) 76%, transparent); text-decoration: none; }
-  .social a:hover { color: var(--crimson); }
-  .footer-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.4rem 1.2rem; padding-top: 1.3rem; border-top: 1px solid color-mix(in srgb, var(--ivory) 16%, transparent); }
-  .footer-meta span { font-family: "Merriweather", serif; font-size: 0.74rem; letter-spacing: 0.02em; color: color-mix(in srgb, var(--ivory) 54%, transparent); }
+  /* ============================================================
+     FOOTER (ink) + social
+     ============================================================ */
+  .footer .inner { padding-top: clamp(2.2rem, 8vw, 2.8rem); padding-bottom: clamp(2.4rem, 9vw, 3.2rem); }
+  .footer .wordmark { color: var(--accent); font-size: 1.3rem; }
+  .social { margin-top: 1.4rem; display: flex; flex-wrap: wrap; gap: 1.3rem; }
+  .social a { font-size: .85rem; font-weight: 600; color: color-mix(in srgb, var(--cream) 70%, transparent); letter-spacing: .02em; }
+  .social a:hover { color: var(--accent); }
+  .footer-meta { margin-top: 1.6rem; padding-top: 1.2rem; border-top: 1px solid color-mix(in srgb, var(--cream) 16%, transparent); display: flex; flex-wrap: wrap; justify-content: space-between; gap: .4rem 1rem; }
+  .footer-meta span { font-size: .73rem; color: color-mix(in srgb, var(--cream) 54%, transparent); letter-spacing: .02em; }
 
-  /* ════════════════ scroll reveals + product motion ════════════════ */
-  .reveal { opacity: 0; transform: translateY(14px); }
-  .reveal.in { opacity: 1; transform: none; transition: opacity 0.7s cubic-bezier(.2,.6,.2,1), transform 0.7s cubic-bezier(.2,.6,.2,1); }
-  @media (prefers-reduced-motion: reduce) {
-    .reveal { opacity: 1; transform: none; }
-    .hero-eyebrow .flicker { animation: none; }
-  }
-
-  /* ════════════════ sticky conversion bar ════════════════ */
+  /* ============================================================
+     STICKY CONVERSION BAR
+     ============================================================ */
   .sticky-cta {
-    position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
-    background: color-mix(in srgb, var(--ink) 86%, transparent);
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; max-width: 480px; margin-inline: auto;
+    background: color-mix(in srgb, var(--ink) 90%, transparent);
     -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
-    border-top: 1px solid color-mix(in srgb, var(--ivory) 16%, transparent);
-    padding: 0.7rem var(--pad);
-    padding-bottom: calc(0.7rem + env(safe-area-inset-bottom, 0px));
-    transform: translateY(130%);
-    transition: transform 0.34s cubic-bezier(.2,.7,.2,1);
-    pointer-events: none;
+    border-top: 1px solid color-mix(in srgb, var(--cream) 16%, transparent);
+    padding: .7rem var(--pad); padding-bottom: calc(.7rem + env(safe-area-inset-bottom, 0px));
+    transform: translateY(130%); transition: transform .34s cubic-bezier(.2,.7,.2,1); pointer-events: none;
   }
   .sticky-cta.show { transform: none; pointer-events: auto; }
-  .sticky-inner {
-    max-width: var(--maxw); margin: 0 auto;
-    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-  }
-  .sticky-label {
-    font-family: "Merriweather", Georgia, serif;
-    font-size: 0.82rem; line-height: 1.25;
-    color: color-mix(in srgb, var(--ivory) 66%, transparent);
-  }
-  .sticky-label b { color: var(--ivory); font-weight: 700; }
+  .sticky-inner { max-width: var(--maxw); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .sticky-label { font-size: .84rem; line-height: 1.25; color: color-mix(in srgb, var(--cream) 66%, transparent); }
+  .sticky-label b { color: var(--cream); font-weight: 700; }
   .sticky-btn {
-    flex: none;
-    display: inline-flex; align-items: center; gap: 0.45em; white-space: nowrap;
-    background: var(--crimson); color: var(--ivory);
-    font-family: "Archivo", sans-serif; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.01em;
-    text-decoration: none;
-    padding: 0 1.15em; min-height: 46px; border-radius: 999px;
-    -webkit-tap-highlight-color: transparent;
-    transition: transform 0.14s ease, background-color 0.16s ease;
+    flex: none; display: inline-flex; align-items: center; gap: .45em; white-space: nowrap;
+    background: var(--accent); color: var(--ink);
+    font-family: var(--sans); font-weight: 700; font-size: .92rem;
+    padding: 0 1.15em; min-height: 46px; border-radius: 999px; -webkit-tap-highlight-color: transparent;
+    transition: transform .14s ease, background-color .16s ease;
   }
+  .sticky-btn:hover { background: var(--accent-2); }
   .sticky-btn:active { transform: translateY(1px); }
   @media (prefers-reduced-motion: reduce) { .sticky-cta { transition: none; } }
+
+  /* ============================================================
+     MOTION — base = visible end-state; hidden states only under
+     html.js + no-preference, so print / reduced-motion / no-JS
+     fall back to the fully-visible page.
+     ============================================================ */
+  @keyframes lucidRise { from { transform: translateY(24px); } to { transform: translateY(0); } }
+  @keyframes lucidSunRise { from { transform: translateY(58%); } to { transform: translateY(0); } }
+  @media (prefers-reduced-motion: no-preference) {
+    /* Hero + sun animate on LOAD via CSS (no IntersectionObserver), so the opening
+       always plays and the sun always rests with its horizon on the bottom edge.
+       Transform-only — a frozen frame is never blank. */
+    html.js .hero .eyebrow, html.js .hero .hero-head, html.js .hero .hero-sub, html.js .hero .btn { animation: lucidRise .8s cubic-bezier(.2,.72,.2,1) both; }
+    html.js .hero .eyebrow   { animation-delay: .12s; }
+    html.js .hero .hero-head { animation-delay: .26s; }
+    html.js .hero .hero-sub  { animation-delay: .46s; }
+    html.js .hero .btn       { animation-delay: .62s; }
+    html.js .sun { animation: lucidSunRise 1.7s cubic-bezier(.16,.84,.3,1) .1s both; }
+
+    /* Below-the-fold scroll reveals (transform-only, always-visible fallback). */
+    html.js [data-reveal] { transform: translateY(18px); transition: transform .7s cubic-bezier(.2,.72,.2,1); transition-delay: var(--rd, 0ms); }
+    html.js [data-reveal].in { transform: none; }
+    html.js [data-reveal].rv-wipe { transform: scaleX(0); transform-origin: left; transition: transform .8s cubic-bezier(.2,.72,.2,1); }
+    html.js [data-reveal].rv-wipe.in { transform: scaleX(1); }
+  }
+  @media print {
+    [data-reveal] { opacity: 1 !important; transform: none !important; filter: none !important; }
+  }
+</style>
+<style>
+  /* ===== Polish pass (visual only — copy unchanged) ===== */
+  .thesis-media img { border-radius: 18px; }
+
+  .t-no { font-family: var(--round); font-size: clamp(1.5rem,7vw,2rem); color: var(--red); margin-bottom: .5rem; }
+
+  .scene-no { font-family: var(--round); font-size: clamp(1.5rem,7vw,2rem); color: var(--amber); margin-bottom: .2rem; }
+  .scene .resolve { color: var(--amber); font-weight: 700; }
+
+  .feel-copy p:first-child { font-size: clamp(1.12rem,4.7vw,1.32rem); line-height: 1.5; color: var(--ink); }
+  .feel-copy .em { color: var(--red); font-weight: 700; }
+
+  .mol-grid { margin-top: clamp(2rem,8vw,2.6rem); display:flex; flex-direction:column; gap:.85rem; }
+  .mol-card { display:grid; grid-template-columns: 58px 1fr auto; gap:.9rem; align-items:center; background: var(--cream-2); border:1px solid color-mix(in srgb, var(--ink) 13%, transparent); border-radius:16px; padding: clamp(.9rem,4vw,1.2rem) clamp(1rem,4.5vw,1.35rem); }
+  .mol-card .mol-fig { width:58px; height:58px; }
+  .mol-card .mol-name { font-family: var(--sans); font-weight:700; font-size: clamp(1.02rem,4.3vw,1.22rem); letter-spacing:-.01em; color: var(--ink); display:block; }
+  .mol-card .mol-body { color: var(--ink-2); margin-top:.18rem; font-size:.9rem; line-height:1.4; }
+  .mol-bignum { font-family: var(--round); font-size: clamp(1.4rem,6.5vw,1.9rem); color: var(--red); line-height:1; white-space:nowrap; }
+  .mol-bignum span { font-size:.42em; color: var(--ink-2); margin-left:.08em; }
+  .formula-sub { text-align:center; }
 </style>
 </head>
 <body>
 
   <!-- ═══════════════ HERO ═══════════════ -->
-  <section class="band ivory hero" data-screen-label="Hero">
+  <section class="band cream hero" data-screen-label="Hero">
     <div class="inner">
       <header class="topbar">
-        <div class="wordmark">Lucid<span class="gum">&nbsp;Gum</span></div>
-        <div class="coming mono">Launching Summer 2026</div>
+        <div class="wordmark">Lucid<span class="sun-dot"></span></div>
+        <span class="top-meta">Summer 2026</span>
       </header>
-
-      <div class="hero-copy">
-        <div class="hero-eyebrow"><span class="marker"></span><span class="flicker">Lock in.</span></div>
-        <h1 class="headline">
-          <span class="line">Clean<span class="dot">.</span></span>
-          <span class="line">Intense<span class="dot">.</span></span>
-          <span class="line">Focus<span class="dot">.</span></span>
-        </h1>
-        <p class="hero-promise">The Perfect Formula<span class="dot">.</span></p>
-      </div>
-
-      <a class="cta" href="#waitlist">Get on the list <span class="arrow" aria-hidden="true">↓</span></a>
-
-      <div class="hero-shot">
-        <img src="uploads/hf_20260612_163742_86f001d1-6e6b-432b-8e38-f26a0ff1a06b.jpg" alt="Lucid Gum — Focus &amp; Clarity blister packs" />
+      <div class="hero-content">
+        <p class="eyebrow">Nootropic gum for deep focus</p>
+        <h1 class="hero-head">The<br />Future<br />of Focus</h1>
+        <p class="hero-sub">Clean, intense focus you can chew anywhere — instantly, immediately. No water, no wait, no crash.</p>
+        <a class="btn" href="#waitlist">Get on the list <span aria-hidden="true">→</span></a>
       </div>
     </div>
+    <div class="horizon"><div class="sun"></div></div>
   </section>
 
-  <!-- ═══════════════ PILLARS ═══════════════ -->
-  <section class="band ivory section pillars" data-screen-label="Pillars">
+  <!-- ═══════════════ THESIS ═══════════════ -->
+  <section class="band cream section thesis" data-screen-label="Thesis">
     <div class="inner">
-      <div class="sec-eyebrow eyebrow reveal"><span class="marker"></span>Our thesis</div>
-      <h2 class="sec-head reveal">Not just energy, but <span class="ul">focus</span><span class="dot">.</span></h2>
-      <div class="pillar reveal">
-        <div class="pillar-num mono">01</div>
-        <h3 class="pillar-title">When you need it</h3>
-        <p class="pillar-body">Lucid Gum is for when the pressure is so great you need a different edge.</p>
-      </div>
-      <div class="pillar reveal">
-        <div class="pillar-num mono">02</div>
-        <h3 class="pillar-title">Sustained clarity</h3>
-        <p class="pillar-body">A single piece provides long-term focus, not a quick energy boost. Focus produces results.</p>
-      </div>
-      <div class="pillar reveal">
-        <div class="pillar-num mono">03</div>
-        <h3 class="pillar-title">Clean and quick</h3>
-        <p class="pillar-body">Nothing extra. The ingredients absorb directly through the buccal tissue, and start working instantly.</p>
+      <span class="kicker">Our thesis</span>
+      <h2 class="section-title">Not just energy, but <em>focus</em></h2>
+      <figure class="thesis-media"><img src="assets/lucid-pack-multi.png" alt="Lucid Gum — Intense Focus, three packs" /></figure>
+      <div class="thesis-grid">
+        <div class="thesis-item">
+          <div class="t-no">01</div>
+          <h3 class="t-title">When you need it</h3>
+          <p class="t-body">Lucid Gum is for when the pressure is so great you need a different edge.</p>
+        </div>
+        <div class="thesis-item">
+          <div class="t-no">02</div>
+          <h3 class="t-title">Sustained clarity</h3>
+          <p class="t-body">A single piece provides long-term focus, not a quick energy boost. Focus produces results.</p>
+        </div>
+        <div class="thesis-item">
+          <div class="t-no">03</div>
+          <h3 class="t-title">Clean and quick</h3>
+          <p class="t-body">Nothing extra. The ingredients absorb directly through the buccal tissue, and start working instantly.</p>
+        </div>
       </div>
     </div>
   </section>
+
+  <hr class="sun-rule" />
 
   <!-- ═══════════════ MOMENTS ═══════════════ -->
   <section class="band ink section moments" data-screen-label="Moments">
     <div class="inner">
-      <div class="moments-media reveal">
-        <img src="uploads/Joseph_Wright_of_Derby_The_Alchemist.jpg" alt="Joseph Wright of Derby — The Alchemist Discovering Phosphorus (1771)" />
-        <p class="moments-credit mono">The Alchemist Discovers Lucid Gum.</p>
-      </div>
-      <div class="sec-eyebrow eyebrow reveal"><span class="marker"></span>The occasion</div>
-      <h2 class="sec-head reveal">Made for the moments you can't fumble<span class="dot">.</span></h2>
+      <span class="kicker">The occasion</span>
+      <h2 class="section-title">Made for the moments you can't fumble</h2>
       <div class="scenes">
-        <p class="scene reveal">It's 2AM, and the problem set is due at 9. Three problems—the hardest ones—haven't been touched; the energy drink quit an hour ago. Time to chew a piece. <span class="scene-lock">Lock in.</span></p>
-        <p class="scene reveal">It's past 11PM, and the buyer list is barely touched: it's due at 9. Half the sponsors need updates, the MD wants "more edge", and your inbox just lit up, again. Lucid Gum. <span class="scene-lock">Lock in.</span></p>
+        <div class="scene">
+          <div class="scene-no">01</div>
+          <p>It's 2AM, and the problem set is due at 9. Three problems—the hardest ones—haven't been touched; the energy drink quit an hour ago. <span class="resolve">It's time to chew a piece.</span></p>
+        </div>
+        <div class="scene">
+          <div class="scene-no">02</div>
+          <p>It's past 11PM, and the buyer list is barely touched: it's due at 8 in the morning. Half the sponsors need updates, the MD wants "more edge," and your inbox just lit up, again. <span class="resolve">Piece again.</span></p>
+        </div>
       </div>
-      <p class="moments-foot mono reveal">When the moment can't slip, neither do you.</p>
+      <p class="moments-foot">Easy, immediate: the future of focus is here.</p>
     </div>
   </section>
 
-  <!-- ═══════════════ FEEL + CHART ═══════════════ -->
-  <section class="band ivory section feel" data-screen-label="Feel">
-    <div class="inner">
-      <div class="sec-eyebrow eyebrow reveal"><span class="marker"></span>What you'll feel</div>
-      <h2 class="sec-head reveal">Locked in for hours, not minutes<span class="dot">.</span></h2>
-      <p class="feel-lede reveal">Within minutes of chewing, the mental clutter becomes silent. You feel more attentive, have an easier time staying on the hard thing, and feel an energy that climbs and holds instead of spiking and crashing. You're <span class="ul">lucid</span>.</p>
-      <p class="feel-lede reveal">The effect isn't foggy; it's just a longer, steadier version of your own best focus, held through.</p>
-      <p class="feel-lede reveal">Caffeine alone spikes quickly, then disappears. Lucid's three actives climb together, then quickly hold. There's no crash with hours of work left, and you feel more alert and focused than with any other stack.</p>
+  <hr class="sun-rule" />
 
-      <div class="chart reveal" role="img" aria-label="Focus over time: caffeine alone spikes within the first hour then crashes, while Lucid climbs steadily and holds flat for hours.">
-        <div class="chart-title mono">Focus over time — caffeine vs. Lucid</div>
-        <svg viewBox="0 0 320 188" preserveAspectRatio="xMidYMid meet" fill="none">
-          <!-- grid baseline -->
-          <line x1="16" y1="160" x2="312" y2="160" stroke="currentColor" stroke-opacity="0.22" stroke-width="1"/>
-          <line x1="16" y1="20" x2="16" y2="160" stroke="currentColor" stroke-opacity="0.22" stroke-width="1"/>
-          <!-- caffeine: fast spike then crash (dashed, muted) -->
-          <path d="M16 150 C 44 150, 58 36, 92 34 C 128 32, 150 132, 196 150 C 240 166, 280 162, 312 162"
-                stroke="currentColor" stroke-opacity="0.45" stroke-width="2.5" stroke-dasharray="5 5" stroke-linecap="round"/>
-          <!-- crash marker -->
-          <circle cx="196" cy="150" r="3.2" fill="#7C151E" fill-opacity="0.55"/>
-          <!-- lucid: climb + hold (crimson, solid) -->
-          <path d="M16 152 C 56 138, 92 70, 150 60 C 210 50, 264 54, 312 50"
-                stroke="#7C151E" stroke-width="3.4" stroke-linecap="round"/>
-          <!-- labels -->
-          <text x="20" y="14" font-family="Merriweather, serif" font-size="9" fill="#0A0806" fill-opacity="0.55">FOCUS</text>
-          <text x="20" y="178" font-family="Merriweather, serif" font-size="9" fill="#0A0806" fill-opacity="0.55">CHEW</text>
-          <text x="278" y="178" font-family="Merriweather, serif" font-size="9" fill="#0A0806" fill-opacity="0.55">4 HRS</text>
-        </svg>
-        <div class="chart-legend">
-          <span class="leg lucid"><span class="swatch"></span>Lucid — climbs &amp; holds</span>
-          <span class="leg caf"><span class="swatch"></span>Caffeine alone — spike &amp; crash</span>
-        </div>
+  <!-- ═══════════════ FEEL + CHART + RESEARCH ═══════════════ -->
+  <section class="band cream section feel" data-screen-label="Feel">
+    <div class="inner">
+      <span class="kicker">What you'll feel</span>
+      <h2 class="section-title">Focused for hours, not minutes</h2>
+      <div class="feel-copy">
+        <p>Within moments of chewing, the mental clutter becomes silent. You feel more attentive, have an easier time staying on the hard thing, and feel a powerful energy that climbs instead of crashing. You're <span class="em">lucid</span>.</p>
+        <p>The effect isn't foggy; it's a longer, steadier version of your own best focus, held through.</p>
+        <p>Caffeine alone spikes quickly, then disappears. Lucid's three actives reinforce each other. There's no crash with hours of work left, and you feel more alert and focused than with any other stack.</p>
       </div>
 
-      <div class="research reveal">
-        <div class="research-eyebrow eyebrow"><span class="marker"></span>Backed by research</div>
-        <p class="refs-note">Lucid Gum is this research in chewable form. In randomized, double-blind, placebo-controlled trials, the same three actives improved focus, vigilance, and reaction time versus placebo — without dragging down mood.</p>
+      <figure class="chart" role="group" aria-label="Focus over time — caffeine vs. Lucid">
+        <div class="chart-bar">
+          <span class="chart-tag">The effect curve</span>
+          <span class="chart-legend">
+            <span class="leg"><i style="background:var(--oxblood)"></i>Lucid</span>
+            <span class="leg"><i style="background:#8C8278"></i>Caffeine</span>
+          </span>
+        </div>
+        <div class="chart-svg">
+          <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid meet" fill="none" role="img" aria-label="Caffeine alone spikes within the first hour then crashes; Lucid climbs steadily and holds flat for hours.">
+            <defs>
+              <linearGradient id="lucidGlow" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#F6C453" stop-opacity="0.5" />
+                <stop offset="1" stop-color="#F6C453" stop-opacity="0" />
+              </linearGradient>
+            </defs>
+            <line x1="26" y1="150" x2="304" y2="150" stroke="#1A140E" stroke-opacity="0.22" />
+            <line x1="26" y1="22" x2="26" y2="150" stroke="#1A140E" stroke-opacity="0.22" />
+            <path d="M26,150 C64,138 100,72 152,62 C212,52 262,57 304,60 L304,150 L26,150 Z" fill="url(#lucidGlow)" />
+            <path d="M26,150 C46,150 64,46 88,44 C122,42 142,128 186,142 C234,156 274,149 304,150" stroke="#8C8278" stroke-width="2.4" stroke-dasharray="5 5" stroke-linecap="round" />
+            <circle cx="186" cy="142" r="3" fill="#8C8278" />
+            <path d="M26,150 C64,138 100,72 152,62 C212,52 262,57 304,60" stroke="#7C151E" stroke-width="3.4" stroke-linecap="round" />
+            <text x="30" y="18" font-family="Archivo, sans-serif" font-size="9" font-weight="700" letter-spacing="0.5" fill="#5C5347">FOCUS</text>
+            <text x="26" y="168" font-family="Archivo, sans-serif" font-size="9" font-weight="700" fill="#5C5347">CHEW</text>
+            <text x="282" y="168" font-family="Archivo, sans-serif" font-size="9" font-weight="700" fill="#5C5347">4 HRS</text>
+          </svg>
+        </div>
+        <figcaption class="chart-cap">Caffeine spikes, then crashes — Lucid climbs and holds.</figcaption>
+      </figure>
+
+      <div class="research">
+        <span class="kicker">Backed by research</span>
+        <p class="research-lede">Lucid Gum is this research in chewable form. In randomized, double-blind, placebo-controlled trials, the same three actives improved focus, vigilance, and reaction time versus placebo — without dragging down mood.</p>
         <ul class="refs">
           <li>
             <p class="ref-finding">Improved vigilance, marksmanship, and reaction time in tactical personnel.</p>
@@ -513,76 +503,73 @@
     </div>
   </section>
 
-  <!-- ═══════════════ FORMULA ACTIVES ═══════════════ -->
-  <section class="band ink section formula" data-screen-label="Formula">
+  <hr class="sun-rule" />
+
+  <!-- ═══════════════ FORMULA ═══════════════ -->
+  <section class="band cream section formula" data-screen-label="Formula">
     <div class="inner">
-      <div class="sec-eyebrow eyebrow reveal"><span class="marker"></span>The formula</div>
-      <h2 class="sec-head reveal">Three actives, one clean lift<span class="dot">.</span></h2>
-      <p class="formula-lede reveal">Three lab-grade actives, synergized to work as one — the result is a clean lift that climbs smooth and holds flat, where caffeine alone spikes and crashes.</p>
-      <div class="effects">
-        <div class="effect reveal">
-          <div class="effect-fig"><img src="uploads/Caffeine_structure.svg.png" alt="Caffeine molecular structure" /></div>
-          <div>
-            <div class="effect-name">Caffeine <span class="effect-mg mono">40mg</span></div>
-            <p class="effect-body">Immediate, familiar alertness.</p>
+      <span class="kicker">The formula</span>
+      <h2 class="section-title">Three actives, working as one</h2>
+      <p class="formula-lede">Three lab-grade actives, synergized to work as one — a clean lift that climbs smooth and holds flat, where caffeine alone spikes and crashes.</p>
+      <div class="mol-grid">
+        <div class="mol-card">
+          <div class="mol-fig"><img src="uploads/Caffeine_structure.svg.png" alt="Caffeine molecular structure" /></div>
+          <div class="mol-meta">
+            <div class="mol-name">Caffeine</div>
+            <p class="mol-body">Immediate, familiar alertness.</p>
           </div>
+          <div class="mol-bignum">40<span>mg</span></div>
         </div>
-        <div class="effect reveal">
-          <div class="effect-fig"><img src="uploads/Theacrine.svg.png" alt="Theacrine molecular structure" /></div>
-          <div>
-            <div class="effect-name">Theacrine <span class="effect-mg mono">30mg</span></div>
-            <p class="effect-body">Smooth, steady focus that holds.</p>
+        <div class="mol-card">
+          <div class="mol-fig"><img src="uploads/Theacrine.svg.png" alt="Theacrine molecular structure" /></div>
+          <div class="mol-meta">
+            <div class="mol-name">Theacrine</div>
+            <p class="mol-body">Powerful, steady focus that holds.</p>
           </div>
+          <div class="mol-bignum">30<span>mg</span></div>
         </div>
-        <div class="effect reveal">
-          <div class="effect-fig"><img src="uploads/Methylliberine_v2.svg.png" alt="Methylliberine molecular structure" /></div>
-          <div>
-            <div class="effect-name">Methylliberine <span class="effect-mg mono">30mg</span></div>
-            <p class="effect-body">Fast, balanced energy without the crash.</p>
+        <div class="mol-card">
+          <div class="mol-fig"><img src="uploads/Methylliberine_v2.svg.png" alt="Methylliberine molecular structure" /></div>
+          <div class="mol-meta">
+            <div class="mol-name">Methylliberine</div>
+            <p class="mol-body">Fast, intense energy with no crash.</p>
           </div>
+          <div class="mol-bignum">30<span>mg</span></div>
         </div>
       </div>
-      <p class="formula-sub mono">Per piece · sugar-free · aspartame-free.</p>
+      <p class="formula-sub">Per piece · sugar-free · aspartame-free</p>
     </div>
   </section>
 
-  <!-- ═══════════════ WAITLIST ═══════════════ -->
-  <section class="band ink section waitlist" id="waitlist" data-screen-label="Waitlist">
-    <div class="inner">
-      <div class="wl-media reveal">
-        <img id="product" src="uploads/IMG_3549.jpeg" alt="Lucid — Focus &amp; Clarity gum blister pack" />
-      </div>
-      <div class="wl-eyebrow eyebrow reveal mono"><span class="marker"></span>Get on the list</div>
-      <h2 class="wl-head reveal">Be the first to lock in.</h2>
+  <hr class="sun-rule" id="waitlist" />
 
-      <form class="wl-form reveal" id="wlForm" novalidate>
+  <!-- ═══════════════ WAITLIST ═══════════════ -->
+  <section class="band ink section waitlist" data-screen-label="Waitlist">
+    <div class="inner">
+      <figure class="wl-media"><img src="assets/lucid-pack-single.png" alt="Lucid Gum — Intense Focus pack" /></figure>
+      <span class="kicker">Get on the list</span>
+      <h2 class="section-title wl-head">Be the first to know</h2>
+      <form class="wl-form" id="wlForm" novalidate>
         <input type="email" id="wlEmail" name="email" placeholder="you@email.com" autocomplete="email" aria-label="Email address" />
         <button type="submit">Get early access</button>
       </form>
       <p class="wl-error" id="wlError" hidden>Enter a valid email address.</p>
-      <p class="wl-note mono reveal" id="wlNote">News, science, and early-access.</p>
-      <p class="wl-status mono reveal">We plan to launch when formulation is complete. We'll email you first: no spam, and with early-access pricing.</p>
-
+      <p class="wl-note" id="wlNote">News, science, and early access.</p>
+      <p class="wl-status">We plan to launch when formulation is complete. We'll email you first: no spam, and with early-access pricing.</p>
       <div class="wl-confirm" id="wlConfirm" hidden>
-        <div class="ok">You're on the list<span class="dot">.</span></div>
-        <p class="sub mono">We'll email <b id="wlConfirmEmail">you</b> this summer with early-access pricing.</p>
+        <div class="ok">You're on the list</div>
+        <p class="sub">We'll email <b id="wlConfirmEmail">you</b> this summer with early-access pricing.</p>
       </div>
     </div>
   </section>
 
   <!-- ═══════════════ CONTACT ═══════════════ -->
-  <section class="band ivory section contact" data-screen-label="Contact">
+  <section class="band ink section contact" data-screen-label="Contact">
     <div class="inner">
-      <div class="sec-eyebrow eyebrow reveal"><span class="marker"></span>Contact</div>
-      <div class="fs-list">
-        <div class="fs-item reveal">
-          <span class="fs-role mono">General</span>
-          <a class="fs-email" href="mailto:company@lucidgum.co">company@lucidgum.co</a>
-        </div>
-        <div class="fs-item reveal">
-          <span class="fs-role mono">Edward Yang · Founder</span>
-          <a class="fs-email" href="mailto:ey2370@columbia.edu">ey2370@columbia.edu</a>
-        </div>
+      <span class="kicker">Contact</span>
+      <div class="contact-list">
+        <div class="contact-item"><span class="contact-role">General</span><a class="contact-email" href="mailto:company@lucidgum.co">company@lucidgum.co</a></div>
+        <div class="contact-item"><span class="contact-role">Edward Yang · Founder</span><a class="contact-email" href="mailto:ey2370@columbia.edu">ey2370@columbia.edu</a></div>
       </div>
     </div>
   </section>
@@ -590,14 +577,15 @@
   <!-- ═══════════════ FOOTER ═══════════════ -->
   <footer class="band ink footer" data-screen-label="Footer">
     <div class="inner">
-      <div class="wordmark">Lucid<span class="gum">&nbsp;Gum</span></div>
+      <div class="wordmark">Lucid<span class="sun-dot"></span></div>
       <nav class="social" aria-label="Social">
         <a href="https://www.instagram.com/takelucid/" target="_blank" rel="noopener">Instagram</a>
         <a href="https://www.tiktok.com/@takelucid" target="_blank" rel="noopener">TikTok</a>
         <a href="http://linkedin.com/company/lucid-gum" target="_blank" rel="noopener">LinkedIn</a>
       </nav>
       <div class="footer-meta">
-        <span>© 2026 Lucid Gum · Contains caffeine.</span>
+        <span>© 2026 Lucid Gum · Contains caffeine</span>
+        <span>Summer 2026</span>
       </div>
     </div>
   </footer>
@@ -605,12 +593,12 @@
   <!-- ═══════════════ STICKY CONVERSION BAR ═══════════════ -->
   <div class="sticky-cta" id="stickyCta" aria-hidden="true">
     <div class="sticky-inner">
-      <span class="sticky-label mono">Launching Summer 2026<span class="dot">.</span></span>
+      <span class="sticky-label">Clean focus, <b>Summer 2026</b>.</span>
       <a class="sticky-btn" href="#waitlist">Get on the list <span aria-hidden="true">→</span></a>
     </div>
   </div>
 
-  <!-- ═══════════════ WAITLIST LOGIC (vanilla, instant states) ═══════════════ -->
+  <!-- ═══════════════ WAITLIST LOGIC ═══════════════ -->
   <script>
     (function () {
       var SUPABASE_URL = "https://jjcrbocoszoysrxbpupr.supabase.co";
@@ -652,24 +640,16 @@
         var prevLabel = btn.textContent;
         btn.disabled = true;
         btn.textContent = "Joining\u2026";
-
         fetch(SUPABASE_URL + "/rest/v1/waitlist", {
           method: "POST",
-          headers: {
-            "apikey": SUPABASE_ANON_KEY,
-            "Authorization": "Bearer " + SUPABASE_ANON_KEY,
-            "Content-Type": "application/json",
-            "Prefer": "return=minimal"
-          },
+          headers: { "apikey": SUPABASE_ANON_KEY, "Authorization": "Bearer " + SUPABASE_ANON_KEY, "Content-Type": "application/json", "Prefer": "return=minimal" },
           body: JSON.stringify({ email: val })
         })
           .then(function (r) {
             if (r.ok || r.status === 409) {
               try { localStorage.setItem(STORE, val); } catch (e) {}
               showConfirmed(val);
-            } else {
-              throw new Error("HTTP " + r.status);
-            }
+            } else { throw new Error("HTTP " + r.status); }
           })
           .catch(function () {
             btn.disabled = false;
@@ -686,47 +666,38 @@
     })();
   </script>
 
-  <!-- ═══════════════ SCROLL REVEALS ═══════════════ -->
+  <!-- ═══════════════ MOTION (reveals + rising sun) ═══════════════ -->
   <script>
     (function () {
       var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      var els = [].slice.call(document.querySelectorAll(".reveal"));
+      var sel = ".section .kicker, .section .section-title, .thesis-media, .thesis-item, .scene, .moments-foot, .feel-copy p, .chart, .research-lede, .refs li, .formula-lede, .mol-item, .formula-sub, .wl-media, .wl-form, .wl-note, .wl-status, .contact-item, .footer .wordmark, .social, .footer-meta, .sun-rule";
+      var nodes = Array.prototype.slice.call(document.querySelectorAll(sel));
+      var groups = new Map();
+      nodes.forEach(function (n) {
+        n.setAttribute("data-reveal", "");
+        if (n.matches(".sun-rule")) { n.classList.add("rv-wipe"); }
+        var p = n.parentElement;
+        var i = groups.get(p) || 0; groups.set(p, i + 1);
+        n.style.setProperty("--rd", Math.min(i, 5) * 70 + "ms");
+      });
       if (reduce || !("IntersectionObserver" in window)) {
-        els.forEach(function (el) { el.classList.add("in"); });
+        nodes.forEach(function (n) { n.classList.add("in"); });
         return;
       }
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (e) {
-          if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+          if (e.isIntersecting) {
+            var t = e.target;
+            t.classList.add("in");
+            io.unobserve(t);
+            // Commit the end-state inline once the reveal has had time to play,
+            // so throttled/static captures (screenshots, PDF/PPTX export) can
+            // never freeze an element mid-fade at opacity:0.
+            setTimeout(function () { t.style.opacity = "1"; t.style.transform = "none"; t.style.filter = "none"; }, 1600);
+          }
         });
-      }, { rootMargin: "0px 0px -8% 0px", threshold: 0.05 });
-      els.forEach(function (el) { io.observe(el); });
-    })();
-  </script>
-
-  <!-- ═══════════════ HERO CARD PARALLAX ═══════════════ -->
-  <script>
-    (function () {
-      if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-      var shot = document.querySelector(".hero-shot");
-      if (!shot) return;
-      var img = shot.querySelector("img");
-      var ticking = false;
-      function update() {
-        ticking = false;
-        var r = shot.getBoundingClientRect();
-        var vh = window.innerHeight || document.documentElement.clientHeight;
-        if (r.bottom < -40 || r.top > vh + 40) return;
-        var extra = img.offsetHeight - shot.offsetHeight;
-        var progress = (vh - r.top) / (vh + r.height); // 0..1 across the viewport
-        progress = Math.max(0, Math.min(1, progress));
-        var ty = -progress * extra;
-        img.style.transform = "translate3d(0," + ty.toFixed(1) + "px,0)";
-      }
-      function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
-      window.addEventListener("scroll", onScroll, { passive: true });
-      window.addEventListener("resize", onScroll);
-      update();
+      }, { rootMargin: "0px 0px -8% 0px", threshold: 0 });
+      nodes.forEach(function (n) { io.observe(n); });
     })();
   </script>
 
@@ -737,29 +708,17 @@
       var hero = document.querySelector(".hero");
       var waitlist = document.getElementById("waitlist");
       if (!bar || !hero || !waitlist) return;
-
-      // Don't nag people who already joined.
       try { if (localStorage.getItem("lucid_waitlist_email")) { bar.remove(); return; } } catch (e) {}
-
       if (!("IntersectionObserver" in window)) return;
 
-      var pastHero = false;   // hero scrolled off the top
-      var reached = false;    // waitlist form has been seen at least once
-
+      var pastHero = false, reached = false;
       function update() {
         var show = pastHero && !reached;
         bar.classList.toggle("show", show);
         bar.setAttribute("aria-hidden", show ? "false" : "true");
       }
-
-      new IntersectionObserver(function (es) {
-        pastHero = !es[0].isIntersecting;
-        update();
-      }, { threshold: 0 }).observe(hero);
-
-      new IntersectionObserver(function (es) {
-        if (es[0].isIntersecting) { reached = true; update(); }
-      }, { threshold: 0.08 }).observe(waitlist);
+      new IntersectionObserver(function (es) { pastHero = !es[0].isIntersecting; update(); }, { threshold: 0 }).observe(hero);
+      new IntersectionObserver(function (es) { if (es[0].isIntersecting) { reached = true; update(); } }, { threshold: 0.08 }).observe(waitlist);
     })();
   </script>
 

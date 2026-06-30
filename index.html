@@ -1,1083 +1,497 @@
 <!DOCTYPE html>
-<html lang="en" data-density="tight">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lucid Gum — The Future of Focus</title>
 <!-- Device switch: phones get the dedicated mobile layout. Add ?nr to any URL to disable. -->
-<script>(function(){try{if(/[?&]nr\b/.test(location.search))return;if(window.matchMedia&&window.matchMedia("(max-width: 768px)").matches){location.replace("mobile.html"+location.hash);}}catch(e){}})();</script>
-<title>Lucid Gum — Coming Summer 2026</title>
+<script>(function(){try{if(!/[?&]nr\b/.test(location.search)&&window.matchMedia&&window.matchMedia("(max-width: 768px)").matches){location.replace("mobile.html"+location.hash);return;}}catch(e){}document.documentElement.classList.add('js');})();</script>
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 <link rel="manifest" href="site.webmanifest" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Comfortaa:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Audiowide&family=Comfortaa:wght@500;600;700&display=swap" rel="stylesheet" />
 <style>
+  /* ============================================================
+     LUCID GUM — "Solar" retro-future
+     Warm optimism · rising-sun motif · friendly rounded type.
+     Cream paper · red→gold sun · ink text. Minimal, sleek, easy.
+     Comfortaa wordmark · Fredoka headlines · Archivo body.
+     ============================================================ */
   :root {
-    --ivory: #F2EEE4;
-    --ink: #0A0806;
-    --maroon: #7C151E;   /* crimson on light surfaces */
-    --crimson: #DC2A2F;  /* brighter crimson on dark */
-    --hscale: 1;
+    --cream:   #F2EEE4;
+    --cream-2: #F8F4EA;
+    --ink:     #1A140E;
+    --ink-2:   #5C5347;
+    --red:     #C0391F;
+    --oxblood: #7C151E;
+    --amber:   #E7A53A;
+    --gold:    #F6C453;
+    --list-accent:   #E08A33;   /* warm amber-orange — harmonises with the maroon packaging */
+    --list-accent-2: #EFA24E;   /* lighter, for hover */
+
+    --sans:  "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --round: "Audiowide", "Comfortaa", system-ui, sans-serif;
+    --brand: "Comfortaa", system-ui, sans-serif;
+
+    --gut:  clamp(1.4rem, 5vw, 5rem);
+    --maxw: 1200px;
   }
-
-  /* ── Direction B: Graphite / Cold ──────────────────────────────
-     Same fonts. Cool graphite near-black, cold grey-white paper,
-     sharpened signal red. Reads clinical, precise, locked-in. */
-  :root[data-palette="graphite"] {
-    --ivory: #E5E8EB;    /* cold grey-white, faint blue undertone */
-    --ink: #12161B;      /* cool charcoal near-black */
-    --maroon: #C81E29;   /* sharpened red on cold light surfaces */
-    --crimson: #F12536;  /* electric signal red on dark surfaces */
-  }
-
-  /* ── Direction A: Blackout / Signal ────────────────────────────
-     Same fonts. Near-black everywhere, one electric red, light text.
-     Nocturnal, maximum intensity, "performance gear". The formerly
-     light bands get a section-scoped variable swap so they go dark
-     too (bg = var(--ivory), text = var(--ink) both flip locally). */
-  :root[data-palette="blackout"] {
-    --ivory: #ECEDEF;    /* light text on dark bands */
-    --ink: #08090A;      /* deepest near-black surface (dark bands) */
-    --maroon: #FB2436;   /* electric signal red */
-    --crimson: #FB2436;  /* electric signal red */
-  }
-  :root[data-palette="blackout"] .hero,
-  :root[data-palette="blackout"] .pillars,
-  :root[data-palette="blackout"] .whygum,
-  :root[data-palette="blackout"] .formula,
-  :root[data-palette="blackout"] .founder-section {
-    --ivory: #121316;    /* local: this band's surface, a hair lifted off black */
-    --ink: #ECEDEF;      /* local: this band's text now reads light */
-    --maroon: #FB2436;   /* local: electric red accent */
-  }
-
-  /* ── Image treatments per palette ──────────────────────────────
-     Tint the photographic + chart imagery to each palette. The
-     painting (.moments-img) and the white-line molecule diagrams
-     (.mol) are intentionally left untouched. */
-
-  /* Graphite: cool + clinical. Desaturate, nudge warm red cooler,
-     lift contrast. Chart stays on its (light) band, just neutralized. */
-  :root[data-palette="graphite"] .hero-img,
-  :root[data-palette="graphite"] #product {
-    filter: contrast(1.05) saturate(0.9) hue-rotate(-6deg) brightness(0.99);
-  }
-  :root[data-palette="graphite"] .feel-curve {
-    filter: contrast(1.03) saturate(0.84) hue-rotate(-6deg);
-  }
-
-  /* Blackout: product backgrounds already read black, so push their
-     red toward the electric signal red. The chart's band goes dark,
-     so dark-mode it (invert + hue-preserve) to blend into black. */
-  :root[data-palette="blackout"] .hero-img,
-  :root[data-palette="blackout"] #product {
-    filter: contrast(1.1) saturate(1.14) brightness(1.05) hue-rotate(-4deg);
-  }
-  :root[data-palette="blackout"] .feel-curve {
-    filter: invert(1) hue-rotate(180deg) saturate(1.05) contrast(0.95) brightness(0.9);
-  }
-
-  /* ── Density: Tight ────────────────────────────────────────────
-     Pulls air out of the layout for a denser, more "locked-in"
-     rhythm. Inter-section padding, oversized internal margins, the
-     waitlist min-height, and the hero's full-viewport void all shrink.
-     Higher specificity (attr + class) overrides the desktop media block. */
-  :root[data-density="tight"] .pillars,
-  :root[data-density="tight"] .moments,
-  :root[data-density="tight"] .whygum,
-  :root[data-density="tight"] .formula,
-  :root[data-density="tight"] .formula-band,
-  :root[data-density="tight"] .founder-section,
-  :root[data-density="tight"] .waitlist {
-    padding-top: clamp(2.4rem, 5.5vw, 3.6rem);
-    padding-bottom: clamp(2.4rem, 5.5vw, 3.6rem);
-  }
-  /* Waitlist intentionally fills the screen so Contact stays below the fold,
-     even in tight density. */
-  :root[data-density="tight"] .waitlist { min-height: 100svh; }
-
-  /* Hero: collapse the full-height void so content sits packed + grounded */
-  :root[data-density="tight"] .hero { height: 100svh; }
-  :root[data-density="tight"] .hero-main {
-    padding-top: clamp(1.6rem, 4vw, 2.4rem);
-    padding-bottom: clamp(1.2rem, 3vw, 1.8rem);
-  }
-
-  /* Internal margins: eyebrow → headline → content gaps */
-  :root[data-density="tight"] .pillars-eyebrow,
-  :root[data-density="tight"] .whygum-eyebrow,
-  :root[data-density="tight"] .moments-eyebrow,
-  :root[data-density="tight"] .wl-eyebrow,
-  :root[data-density="tight"] .fs-eyebrow { margin-bottom: clamp(1.1rem, 3vw, 1.7rem); }
-  :root[data-density="tight"] .pillars-head { margin-bottom: clamp(1.8rem, 5vw, 2.8rem); }
-  :root[data-density="tight"] .whygum-head { margin-bottom: clamp(1.6rem, 4.5vw, 2.4rem); }
-  :root[data-density="tight"] .moments-head { margin-bottom: clamp(1.2rem, 3.5vw, 1.8rem); }
-  :root[data-density="tight"] .moments-scenes { gap: clamp(1.1rem, 3.5vw, 1.8rem); margin-bottom: clamp(1.6rem, 4.5vw, 2.4rem); }
-  :root[data-density="tight"] .wl-head { margin-bottom: clamp(1.2rem, 3.5vw, 1.8rem); }
-  :root[data-density="tight"] .formula-head { margin-bottom: clamp(0.8rem, 2.5vw, 1.2rem); }
-  :root[data-density="tight"] .hero-eyebrow { margin-bottom: clamp(1rem, 3vw, 1.6rem); }
-  :root[data-density="tight"] .ingredients { margin-top: clamp(1rem, 3vw, 1.6rem); }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  /* Clinical, static: hard edges + no motion across the design */
-  .page, .page * { border-radius: 0 !important; transition: none !important; animation: none !important; }
-
+  * { box-sizing: border-box; margin: 0; padding: 0; }
   html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
   body {
-    background: var(--ink);
-    color: var(--ink);
-    font-family: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
+    background: var(--cream); color: var(--ink);
+    font-family: var(--sans); font-size: 18px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
   }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding-inline: var(--gut); }
 
-  .mono {
-    font-family: "Merriweather", Georgia, "Times New Roman", serif;
-    font-weight: 400;
-  }
-
-  /* ---- shared layout ---- */
-  .pad { padding-left: clamp(1.25rem, 5vw, 5.5rem); padding-right: clamp(1.25rem, 5vw, 5.5rem); }
-
-  .eyebrow {
-    font-family: "Merriweather", Georgia, serif;
-    font-size: clamp(0.74rem, 2.6vw, 0.86rem);
-    letter-spacing: 0.02em;
-    font-weight: 400;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.7em;
-  }
-  .marker { width: 0.5em; height: 0.5em; background: var(--maroon); display: inline-block; flex: none; }
-  .marker.light { background: var(--crimson); }
-
-  /* ================= HERO ================= */
-  .hero {
-    background: var(--ivory);
-    color: var(--ink);
-    height: 100svh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
+  /* ── top bar ── */
   .topbar {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 1rem;
-    padding-top: clamp(1.1rem, 3.5vw, 2rem);
-    padding-bottom: clamp(1.1rem, 3.5vw, 1.6rem);
-    border-bottom: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
+    position: relative; z-index: 5;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding-top: clamp(1.1rem, 3vw, 1.8rem); padding-bottom: clamp(1rem, 2.6vw, 1.5rem);
+    border-bottom: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
   }
   .wordmark {
-    font-family: "Comfortaa", sans-serif;
-    font-weight: 500;
-    color: var(--maroon);
-    font-size: clamp(1.4rem, 5.2vw, 2rem);
-    letter-spacing: 0;
-    line-height: 1;
-    white-space: nowrap;
+    font-family: var(--brand); font-weight: 700; font-size: clamp(1.3rem, 4vw, 1.6rem);
+    color: var(--oxblood); display: inline-flex; align-items: center; gap: .5em; line-height: 1;
   }
-  .wordmark .gum { font-weight: 500; color: inherit; }
-  .coming {
-    font-size: clamp(0.7rem, 2.6vw, 0.82rem);
-    letter-spacing: 0.02em;
-    color: color-mix(in srgb, var(--ink) 72%, transparent);
-    text-align: right;
-    white-space: nowrap;
-  }
-  .topbar-right { display: flex; align-items: baseline; gap: clamp(0.9rem, 3.5vw, 1.8rem); }
-  .topbar-cta {
-    font-family: "Archivo", sans-serif;
-    font-weight: 600;
-    font-size: clamp(0.72rem, 2.6vw, 0.86rem);
-    letter-spacing: 0.02em;
-    color: var(--maroon);
-    text-decoration: none;
-    white-space: nowrap;
-    display: inline-flex;
-    align-items: baseline;
-    gap: 0.45em;
-  }
-  .topbar-cta .arrow { font-weight: 700; }
-  .topbar-cta:hover { color: var(--ink); }
-  /* Hero CTA: promoted from the top bar to sit under the intro line as a visible button */
-  .hero-cta {
-    margin-top: clamp(1.4rem, 3.5vw, 2rem);
-    align-self: flex-start;
-    align-items: center;
-    padding: 0.85em 1.4em;
-    border: 1.5px solid var(--maroon);
-    border-radius: 999px;
-    font-size: clamp(0.82rem, 2.6vw, 0.98rem);
-    transition: background-color 0.18s ease, color 0.18s ease;
-  }
-  .hero-cta:hover { background: var(--maroon); color: var(--ivory); }
-  .hero-cta .arrow { font-weight: 700; }
-  /* On phones, drop the redundant launch date (it lives in the footer too) so the CTA has room */
-  @media (max-width: 560px) { .topbar-right .coming { display: none; } }
+  .sun-dot { width: .62em; height: .62em; border-radius: 50%; background: radial-gradient(circle at 34% 32%, var(--gold), var(--red) 78%); display: inline-block; flex: none; }
+  .top-nav { display: flex; align-items: center; gap: clamp(1rem, 3vw, 1.8rem); }
+  .top-meta { font-size: .82rem; font-weight: 600; letter-spacing: .03em; color: var(--ink-2); }
+  .top-cta { font-size: .86rem; font-weight: 700; color: var(--ink); border-bottom: 2px solid var(--red); padding-bottom: 2px; }
+  .top-cta:hover { color: var(--red); }
+  @media (max-width: 560px) { .top-meta { display: none; } }
 
-  .hero-main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding-top: clamp(2.5rem, 12vh, 7rem);
-    padding-bottom: clamp(1.4rem, 4vw, 2.2rem);
+  /* ============================================================
+     HERO — content up top, rising sun horizon at the base
+     ============================================================ */
+  .hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; overflow: hidden; }
+  .hero-inner { position: relative; z-index: 3; flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding-top: clamp(1.4rem, 4vw, 2.4rem); padding-bottom: clamp(200px, 33vw, 300px); }
+  .eyebrow {
+    font-family: var(--sans); font-size: clamp(.74rem, 2vw, .86rem); font-weight: 700;
+    letter-spacing: .18em; text-transform: uppercase; color: var(--red);
+    display: inline-flex; align-items: center; gap: .7em;
   }
-  .hero-eyebrow { margin-bottom: clamp(1.4rem, 4vw, 2.2rem); }
+  .hero-head {
+    font-family: var(--round); font-weight: 400; text-transform: uppercase;
+    font-size: clamp(1.9rem, 6.4vw, 4.6rem); line-height: 1.06; letter-spacing: .004em;
+    color: var(--ink); margin-top: clamp(1.3rem, 3vw, 2rem);
+  }
+  .hero-sub {
+    font-size: clamp(1.02rem, 1.7vw, 1.22rem); line-height: 1.55; color: var(--ink-2);
+    max-width: 40ch; margin: clamp(1.3rem, 3vw, 1.8rem) auto 0;
+  }
+  .btn {
+    font-family: var(--sans); font-weight: 700; font-size: .92rem; letter-spacing: .02em;
+    background: var(--ink); color: var(--cream); padding: 1rem 1.7rem; border-radius: 999px;
+    display: inline-flex; align-items: center; gap: .55em; margin-top: clamp(1.6rem, 3.5vw, 2.2rem);
+    transition: background-color .18s ease, gap .18s ease, transform .18s ease;
+  }
+  .btn span { transition: transform .18s ease; }
+  .btn:hover { background: var(--oxblood); gap: .85em; }
+  .btn:hover span { transform: translateX(2px); }
+  .btn:active { transform: translateY(1px); }
 
-  .headline {
-    font-weight: 800;
-    line-height: 0.86;
-    letter-spacing: -0.035em;
-    font-size: calc(clamp(3.6rem, 21vw, 12.5rem) * var(--hscale));
-    color: var(--ink);
-    text-wrap: balance;
+  /* the sun: a structured half-disc of crisp, flat, stepped warm bands */
+  .horizon { position: absolute; left: 0; right: 0; bottom: 0; z-index: 1; display: flex; justify-content: center; align-items: flex-end; pointer-events: none; }
+  .sun {
+    width: min(620px, 86vw); aspect-ratio: 2 / 1;
+    border-top-left-radius: 50% 100%; border-top-right-radius: 50% 100%;
+    background-image: linear-gradient(180deg,
+      var(--gold)   0 19%,    var(--cream) 19% 20.3%,
+      var(--amber)  20.3% 39%, var(--cream) 39% 40.3%,
+      #E0682E       40.3% 60%, var(--cream) 60% 61.3%,
+      var(--red)    61.3% 81%, var(--cream) 81% 82.3%,
+      var(--oxblood) 82.3% 100%);
   }
-  .headline .line { display: block; }
-  .headline .dot { color: var(--maroon); }
+  /* (cream veil removed — headline no longer overlaps the sun) */
 
-  .ingredients {
-    margin-top: clamp(1.6rem, 5vw, 2.6rem);
-    font-size: clamp(0.74rem, 2.6vw, 0.92rem);
-    letter-spacing: 0.01em;
-    color: color-mix(in srgb, var(--ink) 64%, transparent);
-    max-width: 34ch;
-    line-height: 1.5;
+  /* in-progress note */
+  .todo { border-top: 2px solid var(--ink); padding: clamp(2rem,5vw,3rem) 0; }
+  .todo b { font-family: var(--round); font-weight: 600; font-size: 1.3rem; }
+  .todo p { color: var(--ink-2); margin-top: .5rem; max-width: 56ch; }
+  /* ============================================================
+     SECTIONS (Solar system) — Archivo heads, Audiowide numerals,
+     a mini stepped-band echo of the sun as the kicker mark.
+     ============================================================ */
+  .section { padding-top: clamp(3.4rem, 8vw, 5.5rem); padding-bottom: clamp(3.4rem, 8vw, 5.5rem); }
+  .section + .section { border-top: 1px solid color-mix(in srgb, var(--ink) 13%, transparent); }
+  .kicker {
+    font-family: var(--sans); font-size: clamp(.72rem, 1.8vw, .82rem); font-weight: 700;
+    letter-spacing: .18em; text-transform: uppercase; color: var(--red);
+    display: inline-flex; align-items: center; gap: .7em;
   }
+  .kicker::before {
+    content: ""; width: 1.7em; height: .6em; flex: none; border-radius: 1px;
+    background-image: linear-gradient(90deg, var(--gold) 0 20%, var(--amber) 20% 40%, #E0682E 40% 60%, var(--red) 60% 80%, var(--oxblood) 80% 100%);
+  }
+  .section-title {
+    font-family: var(--sans); font-weight: 700; font-size: clamp(1.9rem, 5vw, 3rem);
+    line-height: 1.05; letter-spacing: -.02em; max-width: 19ch; text-wrap: balance;
+    margin-top: clamp(1rem, 2.5vw, 1.4rem);
+  }
+  .section-title em { font-style: normal; color: var(--red); }
 
-  .hero-foot {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding-top: clamp(1rem, 3vw, 1.4rem);
-    padding-bottom: clamp(1.1rem, 3.5vw, 1.8rem);
-    border-top: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
-    font-size: clamp(0.68rem, 2.4vw, 0.78rem);
-    color: color-mix(in srgb, var(--ink) 60%, transparent);
-    letter-spacing: 0.02em;
-  }
+  .thesis-grid { display: grid; grid-template-columns: 1fr; gap: 0; margin-top: clamp(2.2rem, 5vw, 3.2rem); }
+  .thesis-item { border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent); padding-top: clamp(1.1rem, 3vw, 1.5rem); padding-bottom: clamp(1.6rem, 4vw, 2rem); }
+  .thesis-item:last-child { padding-bottom: 0; }
+  .t-no { font-family: var(--round); font-size: clamp(1.1rem, 3vw, 1.45rem); color: var(--red); margin-bottom: .85rem; }
+  .t-title { font-family: var(--sans); font-weight: 700; font-size: clamp(1.2rem, 2.4vw, 1.5rem); letter-spacing: -.01em; margin-bottom: .6rem; }
+  .t-body { color: var(--ink-2); max-width: 34ch; line-height: 1.55; }
+  @media (min-width: 860px) { .thesis-grid { grid-template-columns: repeat(3, 1fr); gap: clamp(1.6rem, 3vw, 3rem); } .thesis-item { padding-bottom: 0; } }
+  /* §Thesis 2-col: copy + product image alongside */
+  .thesis-layout { display: grid; grid-template-columns: 1fr; gap: clamp(2rem, 5vw, 3.5rem); align-items: center; }
+  .thesis-media img { width: 100%; }
+  .thesis-layout .thesis-grid { grid-template-columns: 1fr; gap: 0; margin-top: clamp(1.6rem, 4vw, 2.4rem); }
+  .thesis-layout .thesis-item { padding-bottom: clamp(1.2rem, 3vw, 1.6rem); }
+  .thesis-layout .thesis-item:last-child { padding-bottom: 0; }
+  @media (min-width: 880px) { .thesis-layout { grid-template-columns: 1fr 1fr; gap: clamp(2.5rem, 5vw, 4.5rem); } }
 
-  /* ================= WAITLIST (dark banner) ================= */
-  .waitlist {
-    background: var(--ink);
-    color: var(--ivory);
-    min-height: 100svh;
-    display: flex;
-    align-items: center;
-    padding-top: clamp(4.5rem, 14vw, 9rem);
-    padding-bottom: clamp(4.5rem, 14vw, 9rem);
-  }
-  .wl-inner { max-width: 880px; width: 100%; }
-  .wl-eyebrow { color: var(--crimson); margin-bottom: clamp(1.6rem, 4vw, 2.2rem); }
-  .wl-head {
-    font-weight: 700;
-    font-size: clamp(2.2rem, 9vw, 5rem);
-    line-height: 0.94;
-    letter-spacing: -0.03em;
-    margin-bottom: clamp(1.8rem, 6vw, 2.8rem);
-    max-width: 16ch;
-    text-wrap: balance;
-  }
-  .wl-head .dot { color: var(--crimson); }
+  .moments-grid { display: grid; grid-template-columns: 1fr; gap: clamp(1.4rem, 3vw, 2rem); margin-top: clamp(2.2rem, 5vw, 3rem); }
+  .scene { border-left: 3px solid var(--red); padding-left: clamp(1rem, 3vw, 1.5rem); }
+  .scene-no { font-family: var(--round); color: var(--red); font-size: 1.05rem; }
+  .scene p { font-size: clamp(1.06rem, 1.7vw, 1.24rem); line-height: 1.5; color: var(--ink); margin-top: .5rem; }
+  .scene .resolve { color: var(--red); font-weight: 700; font-style: normal; }
+  .moments-foot { margin-top: clamp(1.7rem, 4vw, 2.4rem); font-size: clamp(1.05rem, 1.7vw, 1.2rem); color: var(--ink-2); font-style: italic; }
+  @media (min-width: 760px) { .moments-grid { grid-template-columns: 1fr 1fr; } }
+  /* ── §Feel ── */
+  .feel-grid { display: grid; grid-template-columns: 1fr; gap: clamp(2rem, 5vw, 3.5rem); margin-top: clamp(2.2rem, 5vw, 3rem); align-items: center; }
+  .feel-copy p { font-size: clamp(1.04rem, 1.5vw, 1.16rem); line-height: 1.62; color: var(--ink-2); margin-bottom: 1rem; max-width: 46ch; }
+  .feel-copy p:last-child { margin-bottom: 0; }
+  .feel-copy .em { color: var(--red); font-weight: 600; }
+  .feel-fig .fig-frame { border: 1px solid color-mix(in srgb, var(--ink) 20%, transparent); background: var(--cream); overflow: hidden; }
+  .feel-fig .fig-frame::before { content: ""; display: block; height: 5px; background-image: linear-gradient(90deg, var(--gold) 0 20%, var(--amber) 20% 40%, #E0682E 40% 60%, var(--red) 60% 80%, var(--oxblood) 80% 100%); }
+  .fig-bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; padding: clamp(.7rem, 2vw, .95rem) clamp(.9rem, 2.5vw, 1.25rem); border-bottom: 1px solid color-mix(in srgb, var(--ink) 14%, transparent); }
+  .fig-tag { font-family: var(--sans); font-size: .73rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--ink); }
+  .fig-legend { display: flex; align-items: center; gap: clamp(.7rem, 2vw, 1.1rem); }
+  .fig-key { display: inline-flex; align-items: center; gap: .45em; font-family: var(--sans); font-size: .7rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-2); }
+  .fig-key i { width: 16px; height: 3px; border-radius: 2px; display: inline-block; flex: none; }
+  .feel-fig .fig-frame img { width: 100%; display: block; }
+  .feel-cap { margin-top: .8rem; font-size: .78rem; color: var(--ink-2); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+  @media (min-width: 880px) { .feel-grid { grid-template-columns: 1.02fr .98fr; } }
 
-  form.wl-form { display: flex; flex-wrap: wrap; gap: 0; max-width: 560px; border: 1px solid color-mix(in srgb, var(--ivory) 78%, transparent); }
-  form.wl-form[hidden], .wl-note[hidden] { display: none !important; }
-  .wl-form input[type="email"] {
-    flex: 1 1 200px;
-    min-width: 0;
-    border: none;
-    background: transparent;
-    color: var(--ivory);
-    font-family: "Archivo", sans-serif;
-    font-size: clamp(0.95rem, 3.4vw, 1.05rem);
-    letter-spacing: 0.01em;
-    padding: clamp(0.95rem, 3.6vw, 1.2rem) clamp(1rem, 3.6vw, 1.3rem);
-    outline: none;
-  }
-  .wl-form input[type="email"]::placeholder { color: color-mix(in srgb, var(--ivory) 42%, transparent); }
-  .wl-form button {
-    flex: 0 0 auto;
-    border: none;
-    border-left: 1px solid color-mix(in srgb, var(--ivory) 78%, transparent);
-    background: var(--crimson);
-    color: var(--ivory);
-    font-family: "Archivo", sans-serif;
-    font-weight: 600;
-    font-size: clamp(0.9rem, 3.2vw, 1rem);
-    letter-spacing: 0.01em;
-    padding: clamp(0.95rem, 3.6vw, 1.2rem) clamp(1.3rem, 5vw, 2.2rem);
-    cursor: pointer;
-    white-space: nowrap;
-  }
-  .wl-form button:hover { background: var(--ivory); color: var(--ink); }
-  .wl-form.invalid { border-color: var(--crimson); }
+  /* ── §Formula (molecules) ── */
+  .formula-lede { font-size: clamp(1.08rem, 1.7vw, 1.28rem); line-height: 1.5; color: var(--ink); max-width: 56ch; margin-top: clamp(1rem, 2.5vw, 1.4rem); }
+  .mol-grid { display: grid; grid-template-columns: 1fr; gap: 0; margin-top: clamp(2.2rem, 5vw, 3rem); }
+  .mol-item { border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent); padding-top: clamp(1.3rem, 3vw, 1.7rem); padding-bottom: clamp(1.6rem, 4vw, 2rem); }
+  .mol-item:last-child { padding-bottom: 0; }
+  .mol-fig { height: clamp(86px, 18vw, 116px); display: flex; align-items: center; }
+  .mol-fig img { height: 100%; width: auto; max-width: 100%; object-fit: contain; object-position: left center; }
+  .mol-name { font-family: var(--sans); font-weight: 700; font-size: clamp(1.1rem, 2vw, 1.35rem); margin-top: 1rem; display: flex; align-items: baseline; gap: .55em; flex-wrap: wrap; }
+  .mol-mg { font-family: var(--round); font-size: .8rem; color: var(--red); }
+  .mol-body { color: var(--ink-2); margin-top: .4rem; max-width: 30ch; line-height: 1.5; }
+  .formula-sub { margin-top: clamp(1.9rem, 4vw, 2.5rem); font-size: .8rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); }
+  @media (min-width: 860px) { .mol-grid { grid-template-columns: repeat(3, 1fr); gap: clamp(1.6rem, 3vw, 3rem); } .mol-item { padding-bottom: 0; } }
 
-  .wl-note {
-    margin-top: clamp(1rem, 3.5vw, 1.3rem);
-    font-size: clamp(0.74rem, 2.6vw, 0.86rem);
-    letter-spacing: 0.01em;
-    color: color-mix(in srgb, var(--ivory) 60%, transparent);
-    max-width: 46ch;
-    line-height: 1.55;
-  }
-  .wl-error { color: var(--crimson); }
-  .wl-error[hidden] { display: none; }
-  .wl-head[hidden], .wl-status[hidden] { display: none; }
-  .wl-status { margin-top: clamp(1.3rem, 4vw, 1.8rem); padding-top: clamp(1rem, 3vw, 1.3rem); border-top: 1px solid color-mix(in srgb, var(--ivory) 18%, transparent); font-size: clamp(0.74rem, 2.6vw, 0.84rem); letter-spacing: 0.01em; color: color-mix(in srgb, var(--ivory) 52%, transparent); max-width: 46ch; line-height: 1.55; }
-
-  .wl-confirm[hidden] { display: none; }
-  .wl-confirm { max-width: 560px; }
-  .wl-confirm .ok {
-    font-weight: 700;
-    font-size: clamp(1.4rem, 6vw, 2.2rem);
-    letter-spacing: -0.02em;
-    line-height: 1.05;
-    margin-bottom: 0;
-  }
-  .wl-confirm .ok .dot { color: var(--crimson); }
-  .wl-confirm .sub { font-size: clamp(0.78rem, 2.8vw, 0.92rem); color: color-mix(in srgb, var(--ivory) 64%, transparent); line-height: 1.55; }
-  .wl-confirm .sub b { color: var(--ivory); font-weight: 500; }
-
-  /* ================= PILLARS (ivory) ================= */
-  .pillars {
-    background: var(--ivory);
-    color: var(--ink);
-    padding-top: clamp(4.5rem, 14vw, 9rem);
-    padding-bottom: clamp(4.5rem, 14vw, 9rem);
-  }
-  .pillars-eyebrow { margin-bottom: clamp(2rem, 6vw, 3rem); }
-  .pillars-head {
-    font-weight: 800;
-    font-size: clamp(1.9rem, 7vw, 3.4rem);
-    line-height: 1.0;
-    letter-spacing: -0.03em;
-    max-width: 18ch;
-    margin-bottom: clamp(3rem, 9vw, 5rem);
-    text-wrap: balance;
-  }
-  .pillars-head .dot { color: var(--maroon); }
-  .pillars-head .ul, .formula-lede .ul { text-decoration: underline; text-decoration-color: var(--maroon); text-decoration-thickness: 0.055em; text-underline-offset: 0.12em; }
-  .pillar-grid { display: grid; grid-template-columns: 1fr; gap: 0; }
-  .pillar {
-    border-top: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
-    padding-top: clamp(1.4rem, 4vw, 2rem);
-    padding-bottom: clamp(2.4rem, 7vw, 3rem);
-  }
-  .pillar:last-child { padding-bottom: 0; }
-  .pillar-num {
-    font-size: clamp(0.74rem, 2.6vw, 0.86rem);
-    color: var(--maroon);
-    letter-spacing: 0.06em;
-    margin-bottom: clamp(0.9rem, 3vw, 1.2rem);
-  }
-  .pillar-title {
-    font-weight: 700;
-    font-size: clamp(1.3rem, 5vw, 1.85rem);
-    letter-spacing: -0.02em;
-    line-height: 1.06;
-    margin-bottom: clamp(0.7rem, 2.5vw, 1rem);
-  }
-  .pillar-body {
-    font-size: clamp(0.95rem, 3vw, 1.05rem);
-    line-height: 1.5;
-    color: color-mix(in srgb, var(--ink) 66%, transparent);
-    max-width: 34ch;
-  }
-  @media (min-width: 880px) {
-    .pillar-grid { grid-template-columns: repeat(3, 1fr); gap: clamp(1.5rem, 3vw, 3rem); }
-    .pillar { padding-bottom: 0; }
-  }
-
-  /* ================= FOOTER ================= */
-  .footer {
-    background: var(--ink);
-    color: var(--ivory);
-    border-top: 1px solid color-mix(in srgb, var(--ivory) 16%, transparent);
-    padding-top: clamp(2.2rem, 6vw, 3rem);
-    padding-bottom: clamp(1.6rem, 4.5vw, 2.2rem);
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 0.8rem 1.5rem;
-  }
-  .footer .wordmark { color: var(--crimson); font-size: clamp(1.1rem, 4vw, 1.35rem); }
-  .footer .wordmark .gum { color: color-mix(in srgb, var(--crimson) 90%, var(--ivory)); }
-  .footer .meta { font-size: clamp(0.68rem, 2.4vw, 0.78rem); letter-spacing: 0.02em; color: color-mix(in srgb, var(--ivory) 58%, transparent); }
-  .footer .meta.right { text-align: right; }
-
-  /* ================= SOCIAL BAR ================= */
-  .socialbar {
-    background: var(--ink);
-    color: var(--ivory);
-    border-top: 1px solid color-mix(in srgb, var(--ivory) 16%, transparent);
-    padding-top: clamp(1rem, 3.2vw, 1.25rem);
-    padding-bottom: clamp(1.4rem, 4vw, 1.8rem);
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 0.6rem 1.5rem;
-  }
-  .social { display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(1.4rem, 5vw, 2.8rem); }
-  .social a {
-    color: color-mix(in srgb, var(--ivory) 74%, transparent);
-    text-decoration: none;
-    font-size: clamp(0.72rem, 2.6vw, 0.82rem);
-    letter-spacing: 0.03em;
-  }
-  .social a:hover { color: var(--crimson); }
-  .social-tag { font-size: clamp(0.68rem, 2.4vw, 0.78rem); letter-spacing: 0.02em; color: color-mix(in srgb, var(--ivory) 48%, transparent); }
-
-  /* ================= PRODUCT BAND (ivory) ================= */
-  img.slot { display: block; object-fit: cover; }
-  /* Product shot in the waitlist band: show the WHOLE blister pack, never crop it */
-  #product { object-fit: contain; }
-  .hero-img { display: block; width: 100%; object-fit: cover; object-position: center; }
-  .wl-grid { width: 100%; display: grid; grid-template-columns: 1fr; gap: clamp(2.5rem, 8vw, 4rem); align-items: center; }
-  .wl-media .slot {
-    width: 100%;
-    height: clamp(300px, 78vw, 440px);
-    border: 1px solid color-mix(in srgb, var(--ivory) 24%, transparent);
-  }
-  @media (min-width: 880px) {
-    .wl-grid { grid-template-columns: 0.85fr 1fr; gap: clamp(3rem, 6vw, 6rem); }
-    .wl-media .slot { height: clamp(380px, 42vw, 560px); }
-  }
-  .product {
-    background: var(--ivory);
-    color: var(--ink);
-    padding-top: clamp(4.5rem, 14vw, 9rem);
-    padding-bottom: clamp(4.5rem, 14vw, 9rem);
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: clamp(2.2rem, 7vw, 3rem);
-    align-items: center;
-  }
-  .product-media .slot {
-    width: 100%;
-    height: clamp(360px, 86vw, 540px);
-    border: 1px solid color-mix(in srgb, var(--ink) 26%, transparent);
-    filter: grayscale(1) contrast(1.04);
-  }
-  .product-eyebrow { margin-bottom: clamp(1.4rem, 4vw, 2rem); }
-  .product-head {
-    font-weight: 800;
-    font-size: clamp(1.9rem, 6.5vw, 3.4rem);
-    line-height: 1.0;
-    letter-spacing: -0.03em;
-    max-width: 14ch;
-    margin-bottom: clamp(1.2rem, 4vw, 1.8rem);
-    text-wrap: balance;
-  }
-  .product-head .dot { color: var(--maroon); }
-  .product-body {
-    font-size: clamp(0.98rem, 3vw, 1.1rem);
-    line-height: 1.55;
-    color: color-mix(in srgb, var(--ink) 70%, transparent);
-    max-width: 36ch;
-    margin-bottom: clamp(1.8rem, 5vw, 2.4rem);
-  }
-  .product-spec { list-style: none; border-top: 1px solid color-mix(in srgb, var(--ink) 24%, transparent); max-width: 420px; }
-  .product-spec li {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    font-size: clamp(0.74rem, 2.6vw, 0.84rem);
-    letter-spacing: 0.01em;
-    padding: clamp(0.6rem, 2vw, 0.85rem) 0;
-    border-bottom: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
-    color: color-mix(in srgb, var(--ink) 60%, transparent);
-  }
-  .product-spec li b { color: var(--ink); font-weight: 400; }
-  @media (min-width: 880px) {
-    .product { grid-template-columns: 0.9fr 1.1fr; gap: clamp(3rem, 6vw, 6rem); }
-    .product-media .slot { height: clamp(440px, 40vw, 600px); }
-  }
-
-  /* ================= CONTEXT BAND (founding) ================= */
-  .context {
-    position: relative;
-    background: var(--ink);
-    min-height: clamp(440px, 76svh, 820px);
-    display: flex;
-    align-items: flex-end;
-    overflow: hidden;
-  }
-  .context .slot {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    filter: grayscale(1) contrast(1.06);
-    z-index: 0;
-  }
-  .context .scrim {
-    position: absolute;
-    inset: 0;
-    background: color-mix(in srgb, var(--ink) 56%, transparent);
-    z-index: 1;
-  }
-  .context-copy {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    color: var(--ivory);
-    padding-top: clamp(3rem, 9vw, 6rem);
-    padding-bottom: clamp(2.6rem, 8vw, 5rem);
-  }
-  .context-eyebrow { color: var(--crimson); margin-bottom: clamp(1.4rem, 4vw, 2rem); }
-  .context-line {
-    font-weight: 800;
-    font-size: clamp(1.9rem, 6.5vw, 3.6rem);
-    line-height: 1.02;
-    letter-spacing: -0.03em;
-    max-width: 18ch;
-    text-wrap: balance;
-  }
-  .context-line .dot { color: var(--crimson); }
-  .context-credit {
-    margin-top: clamp(1.6rem, 5vw, 2.4rem);
-    font-size: clamp(0.82rem, 2.8vw, 1rem);
-    letter-spacing: 0.02em;
-    color: color-mix(in srgb, var(--ivory) 78%, transparent);
-  }
-
-  /* ================= MOMENTS (dark, editorial) ================= */
-  .moments {
-    background: var(--ink);
-    color: var(--ivory);
-    border-top: 1px solid color-mix(in srgb, var(--ivory) 14%, transparent);
-    padding-top: clamp(4.5rem, 14vw, 9rem);
-    padding-bottom: clamp(4.5rem, 14vw, 9rem);
-  }
-  .moments-eyebrow { color: var(--crimson); margin-bottom: clamp(1.6rem, 4vw, 2.2rem); }
-  .moments-head {
-    font-family: "Merriweather", Georgia, serif;
-    font-weight: 400;
-    font-size: clamp(1.05rem, 3.2vw, 1.5rem);
-    line-height: 1.3;
-    letter-spacing: 0;
-    max-width: 28ch;
-    margin-bottom: clamp(2rem, 6vw, 3rem);
-    color: color-mix(in srgb, var(--ivory) 66%, transparent);
-    text-wrap: pretty;
-  }
-  .moments-head .dot, .moments-list .dot { color: var(--crimson); }
-  .moments-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: clamp(0.8rem, 2.5vw, 1.3rem);
-    margin-bottom: clamp(2.4rem, 7vw, 3.4rem);
-  }
-  .moments-list li {
-    font-weight: 800;
-    font-size: clamp(1.9rem, 7.5vw, 4rem);
-    line-height: 1.0;
-    letter-spacing: -0.035em;
-    color: var(--ivory);
-    text-wrap: balance;
-  }
-  .moments-foot {
-    font-size: clamp(0.82rem, 2.8vw, 1rem);
-    letter-spacing: 0.01em;
-    color: color-mix(in srgb, var(--ivory) 60%, transparent);
-    max-width: 40ch;
-    line-height: 1.5;
-  }
-
-  /* ================= PROOF (demoted formula) ================= */
-  .proof {
-    margin-top: clamp(2.2rem, 6vw, 3.2rem);
-    border-top: 1px solid color-mix(in srgb, var(--ivory) 22%, transparent);
-    padding-top: clamp(1.8rem, 5vw, 2.5rem);
-  }
-  .proof-eyebrow { color: var(--crimson); margin-bottom: clamp(1rem, 3vw, 1.4rem); }
-  .proof-lede {
-    font-size: clamp(0.95rem, 2.2vw, 1.15rem);
-    line-height: 1.5;
-    color: color-mix(in srgb, var(--ivory) 82%, transparent);
-    max-width: 48ch;
-    margin-bottom: clamp(1.2rem, 4vw, 1.8rem);
-    text-wrap: pretty;
-  }
-  .proof .effect-fig { height: clamp(60px, 13vw, 80px); margin-bottom: clamp(0.7rem, 2.5vw, 1rem); }
-  .proof .effect-name { font-size: clamp(1rem, 3.2vw, 1.2rem); }
-  .proof .effect-body { font-size: clamp(0.86rem, 2.6vw, 0.96rem); }
-
-  /* ================= FORMULA (dark, clinical) ================= */
-  .formula {
-    background: var(--ink);
-    color: var(--ivory);
-    border-top: 1px solid color-mix(in srgb, var(--ivory) 14%, transparent);
-    padding-top: clamp(4.5rem, 14vw, 9rem);
-    padding-bottom: clamp(3.5rem, 10vw, 6rem);
-  }
-  .formula-eyebrow { color: var(--crimson); margin-bottom: clamp(0.6rem, 2vw, 0.9rem); }
-  .formula-sub {
-    font-size: clamp(0.74rem, 2.6vw, 0.86rem);
-    letter-spacing: 0.02em;
-    color: color-mix(in srgb, var(--ivory) 55%, transparent);
-    margin-top: clamp(1.6rem, 5vw, 2.4rem);
-  }
-  .formula-lede {
-    font-size: clamp(0.98rem, 2.2vw, 1.2rem);
-    line-height: 1.45;
-    letter-spacing: -0.01em;
-    max-width: 62ch;
-    color: color-mix(in srgb, var(--ivory) 88%, transparent);
-    margin-bottom: clamp(1rem, 3vw, 1.4rem);
-    text-wrap: pretty;
-  }
-  .formula-head {
-    font-weight: 800;
-    font-size: clamp(2rem, 7vw, 3.6rem);
-    line-height: 1.0;
-    letter-spacing: -0.03em;
-    max-width: 16ch;
-    margin-bottom: clamp(1rem, 3vw, 1.5rem);
-    text-wrap: balance;
-  }
-  .formula-head .dot { color: var(--crimson); }
-  .effect-grid { display: grid; grid-template-columns: 1fr; gap: 0; margin-top: clamp(1.4rem, 4vw, 2rem); }
-  .effect {
-    border-top: 1px solid color-mix(in srgb, var(--ivory) 22%, transparent);
-    padding-top: clamp(1.2rem, 4vw, 1.6rem);
-    padding-bottom: clamp(1.6rem, 5vw, 2rem);
-  }
-  .effect-fig { width: 100%; height: clamp(96px, 24vw, 130px); margin-top: clamp(0.4rem, 2vw, 0.8rem); margin-bottom: clamp(0.9rem, 3vw, 1.3rem); display: flex; align-items: center; justify-content: flex-start; }
-  .mol { height: 100%; width: auto; max-width: 100%; object-fit: contain; object-position: left center; filter: invert(1); opacity: 0.9; }
-  .effect-name { font-weight: 700; font-size: clamp(1.15rem, 4vw, 1.45rem); letter-spacing: -0.01em; color: var(--ivory); margin-bottom: clamp(0.4rem, 1.5vw, 0.6rem); display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap; }
-  .effect-mg { font-weight: 400; font-size: clamp(0.74rem, 2.6vw, 0.86rem); color: var(--crimson); letter-spacing: 0.02em; }
-  .effect-body { font-size: clamp(0.92rem, 3vw, 1.05rem); line-height: 1.5; color: color-mix(in srgb, var(--ivory) 70%, transparent); max-width: 30ch; }
-  @media (min-width: 880px) {
-    .effect-grid { grid-template-columns: repeat(3, 1fr); gap: clamp(1.5rem, 3vw, 3rem); }
-  }
-  .research { margin-top: clamp(1.8rem, 5vw, 2.8rem); border-top: 1px solid color-mix(in srgb, var(--ivory) 22%, transparent); padding-top: clamp(1.8rem, 5vw, 2.5rem); }
-  .research-eyebrow { color: var(--crimson); margin-bottom: clamp(1.4rem, 4vw, 2rem); }
-  .refs { list-style: none; counter-reset: ref; display: flex; flex-direction: column; gap: clamp(1.1rem, 3.5vw, 1.6rem); max-width: 760px; }
-  .refs li {
-    counter-increment: ref;
-    position: relative;
-    padding-left: 2.2em;
-    font-size: clamp(0.72rem, 2.5vw, 0.82rem);
-    line-height: 1.55;
-    letter-spacing: 0.01em;
-    color: color-mix(in srgb, var(--ivory) 58%, transparent);
-  }
-  .refs li::before { content: counter(ref); position: absolute; left: 0; top: 0; color: var(--crimson); }
-  .refs em { color: color-mix(in srgb, var(--ivory) 80%, transparent); }
-  .refs a { color: var(--crimson); text-decoration: none; word-break: break-word; }
+  /* ── §Research ── */
+  .refs { list-style: none; counter-reset: r; margin-top: clamp(1.8rem, 4vw, 2.4rem); display: grid; gap: clamp(1rem, 2.5vw, 1.4rem); max-width: 880px; }
+  .refs li { counter-increment: r; position: relative; padding-left: 2.2em; font-size: .84rem; line-height: 1.55; color: var(--ink-2); }
+  .refs li::before { content: counter(r); position: absolute; left: 0; top: 0; font-family: var(--round); color: var(--red); font-size: .92rem; }
+  .refs em { color: var(--ink); font-style: italic; }
+  .refs a { color: var(--red); word-break: break-word; }
   .refs a:hover { text-decoration: underline; }
-  .refs-note { margin-top: clamp(1.4rem, 4vw, 2rem); font-size: clamp(0.7rem, 2.4vw, 0.78rem); letter-spacing: 0.01em; color: color-mix(in srgb, var(--ivory) 44%, transparent); max-width: 60ch; line-height: 1.5; }
-  .founders { margin-top: clamp(3rem, 9vw, 5rem); border-top: 1px solid color-mix(in srgb, var(--ivory) 22%, transparent); padding-top: clamp(1.8rem, 5vw, 2.5rem); }
-  .founders-eyebrow { color: var(--crimson); margin-bottom: clamp(1.4rem, 4vw, 2rem); }
-  .contact-primary { display: flex; flex-direction: column; gap: 0.5rem; }
-  .contact-founders { display: grid; grid-template-columns: 1fr; gap: clamp(1.3rem, 4vw, 1.8rem); max-width: 760px; }
-  .contact-item { display: flex; flex-direction: column; gap: 0.45rem; }
-  .contact-role { font-size: clamp(0.72rem, 2.5vw, 0.82rem); letter-spacing: 0.02em; color: color-mix(in srgb, var(--ivory) 55%, transparent); }
-  .contact-email { font-weight: 600; font-size: clamp(1rem, 3vw, 1.2rem); letter-spacing: -0.01em; color: var(--ivory); text-decoration: none; }
-  .contact-primary .contact-email { font-size: clamp(1.2rem, 4.2vw, 1.7rem); }
-  .contact-email:hover { color: var(--crimson); }
-  @media (min-width: 680px) {
-    .contact-founders { grid-template-columns: repeat(2, 1fr); gap: clamp(1.5rem, 4vw, 3rem); }
+  /* ── §Waitlist ── */
+  .wl-grid { display: grid; grid-template-columns: 1fr; gap: clamp(2rem, 5vw, 3.5rem); align-items: center; }
+  .wl-media img { width: 100%; }
+  .wl-head { margin-top: clamp(1rem, 2.5vw, 1.4rem); }
+  .wl-form { display: flex; flex-wrap: wrap; gap: .6rem; max-width: 520px; margin-top: clamp(1.6rem, 4vw, 2.2rem); }
+  .wl-form input { flex: 1 1 220px; min-width: 0; font-family: var(--sans); font-size: 1rem; padding: 1rem 1.15rem; background: var(--cream-2); border: 1px solid color-mix(in srgb, var(--ink) 28%, transparent); border-radius: 999px; color: var(--ink); }
+  .wl-form input::placeholder { color: var(--ink-2); }
+  .wl-form input:focus { outline: none; border-color: var(--red); }
+  .wl-form button { flex: 0 0 auto; font-family: var(--sans); font-weight: 700; font-size: .95rem; padding: 1rem 1.6rem; background: var(--ink); color: var(--cream); border: 1px solid var(--ink); border-radius: 999px; cursor: pointer; transition: background-color .18s ease; }
+  .wl-form button:hover { background: var(--oxblood); border-color: var(--oxblood); }
+  .wl-form.invalid input { border-color: var(--red); }
+  .wl-error { color: var(--red); font-size: .85rem; margin-top: .8rem; }
+  .wl-note { color: var(--ink-2); font-size: .85rem; margin-top: 1rem; max-width: 46ch; line-height: 1.5; }
+  .wl-status { color: var(--ink-2); font-size: .82rem; margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid color-mix(in srgb, var(--ink) 14%, transparent); max-width: 46ch; line-height: 1.5; }
+  .wl-confirm .ok { font-family: var(--sans); font-weight: 700; font-size: clamp(1.5rem, 3vw, 2.1rem); letter-spacing: -.01em; }
+  @media (min-width: 880px) { .wl-grid { grid-template-columns: .82fr 1fr; gap: clamp(3rem, 6vw, 5rem); } }
+
+  /* ── Contact ── */
+  .contact-list { display: grid; grid-template-columns: 1fr; gap: clamp(1.2rem, 3vw, 1.8rem); margin-top: clamp(1.8rem, 4vw, 2.4rem); max-width: 760px; }
+  .contact-item { display: flex; flex-direction: column; gap: .4rem; border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent); padding-top: 1rem; }
+  .contact-role { font-size: .78rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-2); }
+  .contact-email { font-family: var(--sans); font-weight: 700; font-size: clamp(1.05rem, 2vw, 1.3rem); color: var(--oxblood); }
+  .contact-email:hover { color: var(--ink); }
+  @media (min-width: 680px) { .contact-list { grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 4vw, 3rem); } }
+
+  /* ── Footer + social ── */
+  .footer { border-top: 1px solid color-mix(in srgb, var(--ink) 20%, transparent); padding-top: clamp(2rem, 5vw, 2.8rem); padding-bottom: clamp(1.3rem, 4vw, 1.8rem); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .8rem 1.5rem; }
+  .footer .wordmark { font-size: clamp(1.1rem, 3vw, 1.3rem); }
+  .footer-meta { font-size: .78rem; color: var(--ink-2); letter-spacing: .02em; }
+  .socialbar { padding-bottom: clamp(2.4rem, 6vw, 3.4rem); display: flex; justify-content: center; }
+  .social { display: flex; flex-wrap: wrap; gap: clamp(1.4rem, 4vw, 2.4rem); }
+  .social a { font-size: .84rem; font-weight: 600; color: var(--ink-2); letter-spacing: .02em; }
+  /* ════ Revision pass: tighter thesis + warm dark finale ════ */
+  .section.thesis { padding-top: clamp(2.6rem, 6vw, 4.2rem); padding-bottom: clamp(2.6rem, 6vw, 4.2rem); }
+  .thesis-layout .thesis-item { padding-top: clamp(.85rem, 2.2vw, 1.15rem); padding-bottom: clamp(.85rem, 2.2vw, 1.15rem); }
+  .thesis-layout .t-no { margin-bottom: .45rem; }
+  .thesis-layout .t-title { margin-bottom: .35rem; }
+  .thesis-media { display: flex; align-items: center; }
+  .thesis-media img { width: 100%; height: auto; }
+
+  .sun-rule { height: 6px; border: 0; margin: 0;
+    background-image: linear-gradient(90deg, var(--gold) 0 20%, var(--amber) 20% 40%, #E0682E 40% 60%, var(--red) 60% 80%, var(--oxblood) 80% 100%); }
+  .section.waitlist, .section.contact-dark, .footer.dark, .socialbar.dark { background: var(--ink); color: var(--cream); }
+  .section.waitlist { border-top: none; }
+  .section.contact-dark { border-top: 1px solid color-mix(in srgb, var(--cream) 14%, transparent); }
+  .section.waitlist .kicker, .section.contact-dark .kicker { color: var(--list-accent); }
+  .section.waitlist .wl-head, .section.waitlist .section-title { color: var(--cream); }
+  .section.waitlist .wl-note, .section.waitlist .wl-status { color: color-mix(in srgb, var(--cream) 58%, transparent); }
+  .section.waitlist .wl-status { border-top-color: color-mix(in srgb, var(--cream) 18%, transparent); }
+  .section.waitlist .wl-form input { background: color-mix(in srgb, var(--cream) 8%, transparent); border-color: color-mix(in srgb, var(--cream) 30%, transparent); color: var(--cream); }
+  .section.waitlist .wl-form input::placeholder { color: color-mix(in srgb, var(--cream) 44%, transparent); }
+  .section.waitlist .wl-form input:focus { border-color: var(--list-accent); }
+  .section.waitlist .wl-form button { background: var(--list-accent); color: var(--ink); border-color: var(--list-accent); }
+  .section.waitlist .wl-form button:hover { background: var(--list-accent-2); border-color: var(--list-accent-2); }
+  .section.waitlist .wl-confirm .ok { color: var(--cream); }
+  .section.waitlist .wl-media img { border-radius: 16px; border: 1px solid color-mix(in srgb, var(--cream) 16%, transparent); box-shadow: 0 26px 54px -18px rgba(0,0,0,.55); }
+  .section.contact-dark .contact-item { border-top-color: color-mix(in srgb, var(--cream) 16%, transparent); }
+  .section.contact-dark .contact-role { color: color-mix(in srgb, var(--cream) 58%, transparent); }
+  .section.contact-dark .contact-email { color: var(--list-accent); }
+  .section.contact-dark .contact-email:hover { color: var(--cream); }
+  .footer.dark { border-top: 1px solid color-mix(in srgb, var(--cream) 16%, transparent); }
+  .footer.dark .wordmark { color: var(--list-accent); }
+  .footer.dark .footer-meta { color: color-mix(in srgb, var(--cream) 56%, transparent); }
+  .socialbar.dark .social a { color: color-mix(in srgb, var(--cream) 70%, transparent); }
+  .socialbar.dark .social a:hover { color: var(--list-accent); }
+  /* "Occasion" (Moments) — black/yellow dark plate, matching the finale */
+  .section.moments-dark { background: var(--ink); color: var(--cream); border-top: none; }
+  .section.moments-dark .kicker { color: var(--amber); }
+  .section.moments-dark .section-title { color: var(--cream); }
+  .section.moments-dark .scene { border-left-color: var(--amber); }
+  .section.moments-dark .scene p { color: var(--cream); }
+  .section.moments-dark .scene-no { color: var(--amber); }
+  .section.moments-dark .scene .resolve { color: var(--amber); }
+  .section.moments-dark .moments-foot { color: color-mix(in srgb, var(--cream) 62%, transparent); }
+  /* Full-bleed the dark bands so their colour reaches the screen edges.
+     Sections are max-width-centered (.wrap), so their ink background otherwise
+     stops at 1200px and the cream body shows on the sides past that width.
+     box-shadow paints the side margins to match; clip-path keeps it horizontal
+     only (no vertical bleed, no 100vw scrollbar). Content stays centered. */
+  .section.moments-dark, .section.waitlist, .section.contact-dark, .footer.dark, .socialbar.dark {
+    box-shadow: 0 0 0 100vmax var(--ink);
+    clip-path: inset(0 -100vmax);
   }
-
-  /* ================= FOUNDER EMAILS (ivory) ================= */
-  .founder-section {
-    background: var(--ivory);
-    color: var(--ink);
-    padding-top: clamp(2.6rem, 7vw, 4rem);
-    padding-bottom: clamp(3.5rem, 10vw, 6rem);
-  }
-  .fs-eyebrow { margin-bottom: clamp(1.8rem, 5vw, 2.6rem); }
-  .fs-list { display: grid; grid-template-columns: 1fr; gap: clamp(1.4rem, 4vw, 2rem); max-width: 980px; }
-  .fs-item { display: flex; flex-direction: column; gap: 0.5rem; border-top: 1px solid color-mix(in srgb, var(--ink) 22%, transparent); padding-top: clamp(1rem, 3vw, 1.4rem); }
-  .fs-role { font-size: clamp(0.74rem, 2.6vw, 0.86rem); letter-spacing: 0.02em; color: color-mix(in srgb, var(--ink) 58%, transparent); }
-  .fs-email { font-weight: 600; font-size: clamp(0.95rem, 3vw, 1.2rem); letter-spacing: -0.01em; color: var(--maroon); text-decoration: none; }
-  .fs-email:hover { color: var(--ink); }
-  @media (min-width: 680px) {
-    .fs-list { grid-template-columns: repeat(3, 1fr); gap: clamp(1.5rem, 4vw, 3rem); }
-  }
-
-  /* ===== Feel + research stay ivory ===== */
-  .formula { background: var(--ivory); color: var(--ink); border-top: 1px solid color-mix(in srgb, var(--ink) 22%, transparent); }
-  .formula-eyebrow, .research-eyebrow { color: var(--maroon); }
-  .formula-head { color: var(--ink); }
-  .formula-head .dot { color: var(--maroon); }
-  .formula-lede { color: color-mix(in srgb, var(--ink) 72%, transparent); }
-  .research { border-top: 1px solid color-mix(in srgb, var(--ink) 22%, transparent); }
-  .refs li { color: color-mix(in srgb, var(--ink) 60%, transparent); }
-  .refs li::before { color: var(--maroon); }
-  .refs em { color: color-mix(in srgb, var(--ink) 82%, transparent); }
-  .refs a { color: var(--maroon); }
-  .refs-note { color: color-mix(in srgb, var(--ink) 44%, transparent); }
-
-  /* ===== The Formula is its own dark band ===== */
-  .formula-band {
-    background: var(--ink);
-    color: var(--ivory);
-    border-top: 1px solid color-mix(in srgb, var(--ivory) 14%, transparent);
-    padding-top: clamp(4.5rem, 14vw, 9rem);
-    padding-bottom: clamp(3.5rem, 10vw, 6rem);
-  }
-  .formula-band .proof { margin-top: 0; border-top: none; padding-top: 0; }
-
-  /* ===== Hero promise line ===== */
-  .hero-promise { font-weight: 700; font-size: clamp(1.15rem, 3.8vw, 1.7rem); letter-spacing: -0.01em; color: var(--ink); margin-top: clamp(1.2rem, 4vw, 1.8rem); }
-  .hero-promise .dot { color: var(--maroon); }
-
-  /* ===== Moments scenes ===== */
-  .moments-scenes { display: flex; flex-direction: column; gap: clamp(1.6rem, 5vw, 2.6rem); margin-bottom: clamp(2.4rem, 7vw, 3.4rem); max-width: 34ch; }
-  .scene { font-weight: 600; font-size: clamp(1.25rem, 4.2vw, 2rem); line-height: 1.18; letter-spacing: -0.02em; color: var(--ivory); text-wrap: pretty; }
-  .scene-lock { font-weight: 800; color: var(--crimson); }
-
-  /* ===== Why gum (ivory) ===== */
-  .whygum { background: var(--ivory); color: var(--ink); padding-top: clamp(4.5rem, 14vw, 9rem); padding-bottom: clamp(4.5rem, 14vw, 9rem); }
-  .whygum-eyebrow { margin-bottom: clamp(2rem, 6vw, 3rem); }
-  .whygum-head { font-weight: 800; font-size: clamp(1.9rem, 7vw, 3.4rem); line-height: 1.0; letter-spacing: -0.03em; margin-bottom: clamp(2.6rem, 8vw, 4rem); }
-  .whygum-head .dot { color: var(--maroon); }
-  .wg-grid { display: grid; grid-template-columns: 1fr; gap: 0; }
-  .wg-item { border-top: 1px solid color-mix(in srgb, var(--ink) 22%, transparent); padding-top: clamp(1.2rem, 4vw, 1.6rem); padding-bottom: clamp(1.8rem, 6vw, 2.4rem); }
-  .wg-title { font-weight: 700; font-size: clamp(1.2rem, 4.5vw, 1.7rem); letter-spacing: -0.02em; line-height: 1.08; margin-bottom: clamp(0.5rem, 2vw, 0.8rem); }
-  .wg-body { font-size: clamp(0.95rem, 3vw, 1.05rem); line-height: 1.5; color: color-mix(in srgb, var(--ink) 66%, transparent); max-width: 36ch; }
-  @media (min-width: 880px) {
-    .wg-grid { grid-template-columns: repeat(2, 1fr); gap: clamp(1.2rem, 3vw, 2rem) clamp(2rem, 5vw, 4rem); }
-  }
-  /* ===================== DESKTOP LAYOUT + WHITESPACE PASS ===================== */
-  .ph {
-    display: flex; align-items: center; justify-content: center; text-align: center;
-    padding: 1.2rem; min-height: 220px;
-    font-family: ui-monospace, Menlo, Consolas, monospace;
-    font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.5;
-    color: color-mix(in srgb, currentColor 50%, transparent);
-    border: 1px solid color-mix(in srgb, currentColor 26%, transparent);
-    background-image: repeating-linear-gradient(45deg, transparent 0, transparent 10px, color-mix(in srgb, currentColor 7%, transparent) 10px, color-mix(in srgb, currentColor 7%, transparent) 11px);
-  }
-  img.ph.feel-curve {
-    display: block; padding: 0; border: none; background-image: none;
-    width: 100%; height: auto; object-fit: contain;
-  }
-
-  /* hero: kill the top void + cap headline so it never gets cut off */
-  .hero-main { justify-content: center; min-height: 0; padding-top: clamp(1.4rem, 4vh, 2.4rem); padding-bottom: clamp(0.8rem, 2.5vh, 1.6rem); }
-  .headline { font-size: calc(min(clamp(3.2rem, 12vw, 8rem), 12vh) * var(--hscale)); }
-  .hero-media { display: none; }
-
-  @media (max-width: 899px) {
-    .feel-media { display: none; }
-    /* Mobile: let the hero grow past one screen if needed so nothing clips */
-    .hero, :root[data-density="tight"] .hero { height: auto; min-height: 100svh; }
-    /* Show the hero photo in the upper void, with the copy grounded below it */
-    .hero-media {
-      display: flex; order: -1;
-      justify-content: center; align-items: flex-start;
-      margin-bottom: clamp(1.4rem, 5vw, 2.2rem);
-    }
-    .hero-img {
-      width: auto; max-width: 82%;
-      height: auto; max-height: clamp(200px, 34svh, 380px);
-      aspect-ratio: auto; object-fit: contain; object-position: center;
-    }
-    .hero-main { justify-content: space-between; padding-bottom: clamp(1.2rem, 5vh, 2.4rem); }
-  }
-
-  /* Moments artwork: show the ENTIRE painting, never cropped */
-  .moments-img {
-    display: block;
-    width: 100%;
-    height: auto;
-    border: 1px solid color-mix(in srgb, var(--ivory) 24%, transparent);
-  }
-  @media (min-width: 900px) {
-    .moments-media { margin-left: clamp(-3rem, -4vw, -1.5rem); }
-  }
-  .moments-credit {
-    margin-top: clamp(0.7rem, 2vw, 0.9rem);
-    font-size: clamp(0.66rem, 2.2vw, 0.76rem);
-    letter-spacing: 0.02em;
-    line-height: 1.5;
-    color: color-mix(in srgb, var(--ivory) 46%, transparent);
-  }
-  @media (max-width: 899px) {
-    .moments-media { margin-top: clamp(2rem, 8vw, 3rem); }
-  }
-
-  @media (min-width: 900px) {
-    .pillars, .moments, .whygum, .formula, .formula-band, .founder-section {
-      padding-top: clamp(3.5rem, 7vw, 6rem);
-      padding-bottom: clamp(3.5rem, 7vw, 6rem);
-    }
-
-    .hero-main { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(2.5rem, 5vw, 5rem); align-items: stretch; min-height: 0; }
-    .hero-copy { min-width: 0; align-self: center; }
-    .hero-media { display: flex; justify-content: flex-end; align-items: stretch; min-height: 0; }
-    .hero-media .ph { width: 100%; height: 100%; }
-    /* Fill the hero-main row exactly (which is 100svh minus the topbar + foot),
-       so the photo can never push the foot line below the fold. Portrait aspect
-       keeps it from going too wide; object-fit:cover handles any leftover. */
-    .hero-img { width: auto; max-width: 100%; height: 100%; aspect-ratio: 896 / 1200; object-fit: cover; object-position: center; }
-
-    .moments { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(2.5rem, 5vw, 5rem); align-items: center; }
-    .moments-copy { min-width: 0; }
-    .moments-media .ph { width: 100%; height: min(58vh, 520px); }
-
-    .feel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2.5rem, 5vw, 4.5rem); align-items: center; }
-    .feel-copy { min-width: 0; }
-    .feel-media .ph { width: 100%; height: min(48vh, 420px); }
-  }
-
-  /* ===================== MICRO-MOTION (crisp, always-on, reduced-motion-safe) =====================
-     The page hard-kills motion globally (.page * { animation/transition: none !important }).
-     These rules re-enable it ONLY for specific elements, with enough specificity (+ !important)
-     to win, and ONLY when the user hasn't asked to reduce motion. Print + reduced-motion fall
-     back to the static end-state. */
-
-  /* C — Headline words snap in on load (one-shot: JS adds .lg-play, then strips it
-     after it finishes, so the resting DOM has no lingering animation to restart) */
-  @keyframes lg-snap { from { opacity: 0; transform: translateY(0.45em); } to { opacity: 1; transform: none; } }
+  /* ════ Motion — tasteful, reduced-motion + print safe ════
+     Base styles are the visible end-state. Hidden/animated states apply ONLY
+     under html.js (JS present) AND prefers-reduced-motion: no-preference, so
+     print, reduced-motion, and no-JS all fall back to the fully-visible page. */
   @media (prefers-reduced-motion: no-preference) {
-    .headline.lg-play .line { animation: lg-snap 0.58s cubic-bezier(.2,.85,.25,1) backwards !important; }
-    .headline.lg-play .line:nth-child(1) { animation-delay: 0.06s !important; }
-    .headline.lg-play .line:nth-child(2) { animation-delay: 0.16s !important; }
-    .headline.lg-play .line:nth-child(3) { animation-delay: 0.26s !important; }
-  }
+    /* (hero now uses the same [data-reveal] transition system as the reveals) */
+    html.js [data-reveal].rv-sun { opacity: 1; transform: translateY(48%); transition: transform 1.6s cubic-bezier(.16,.84,.3,1); }
+    html.js [data-reveal].rv-sun.in { transform: translateY(0); }
 
-  /* A — "Lock in." blinks like a status light (crisp, mostly-on, one wink per cycle) */
-  @keyframes lg-blink { 0%, 68% { opacity: 1; } 68.01%, 86% { opacity: 0.12; } 86.01%, 100% { opacity: 1; } }
-  @media (prefers-reduced-motion: no-preference) {
-    .hero-eyebrow .lg-blink { animation: lg-blink 1.9s step-end 1s infinite !important; }
+    /* Scroll reveals — rise+fade; titles "come into focus"; horizons wipe in */
+    html.js [data-reveal] { opacity: 0; transform: translateY(22px); transition: opacity .75s ease, transform .75s cubic-bezier(.2,.72,.2,1); transition-delay: var(--rd, 0ms); }
+    html.js [data-reveal].in { opacity: 1; transform: none; }
+    html.js [data-reveal].rv-blur { filter: blur(7px); transition: opacity .75s ease, transform .75s cubic-bezier(.2,.72,.2,1), filter .75s ease; }
+    html.js [data-reveal].rv-blur.in { filter: blur(0); }
+    html.js [data-reveal].rv-wipe { opacity: 1; transform: scaleX(0); transform-origin: left; transition: transform .85s cubic-bezier(.2,.72,.2,1); }
+    html.js [data-reveal].rv-wipe.in { transform: scaleX(1); }
   }
-
-  /* D — "Focus-in" reveal: as a block scrolls into view it rises a touch and
-     sharpens from a slight blur — content literally coming into focus (on-brand
-     for "lucid / lock in"). Implemented as a keyframe ANIMATION whose RESTING
-     state is fully visible — we only animate FROM hidden when JS arms an element
-     with .lg-in as it enters view. So if motion is off (reduced-motion, print,
-     or a context that doesn't run animations) content is simply shown, never
-     stuck invisible. An inline --d staggers grid siblings. */
-  @keyframes lg-focus {
-    from { opacity: 0; transform: translateY(20px); filter: blur(7px); }
-    to   { opacity: 1; transform: none;             filter: blur(0); }
-  }
-  @media (prefers-reduced-motion: no-preference) {
-    .page .lg-reveal.lg-in {
-      animation: lg-focus 0.8s cubic-bezier(.2,.7,.2,1) var(--d, 0ms) both !important;
-    }
+  @media print {
+    [data-reveal] { opacity: 1 !important; transform: none !important; filter: none !important; }
   }
 </style>
 </head>
 <body>
-  <div class="page">
 
-    <!-- ===================== HERO ===================== -->
-    <section class="hero pad" data-screen-label="Hero">
-      <header class="topbar">
-        <div class="wordmark">Lucid<span class="gum">&nbsp;Gum</span></div>
-        <div class="topbar-right">
-          <div class="coming mono" style="font-family: Merriweather">Launching Summer 2026</div>
-        </div>
-      </header>
+  <!-- ===================== HERO ===================== -->
+  <section class="hero" data-screen-label="Hero">
+    <header class="topbar wrap">
+      <div class="wordmark">Lucid<span class="sun-dot"></span></div>
+      <nav class="top-nav">
+        <span class="top-meta">Summer 2026</span>
+        <a class="top-cta" href="#waitlist">Get on the list</a>
+      </nav>
+    </header>
 
-      <div class="hero-main">
-        <div class="hero-copy">
-          <div class="hero-eyebrow eyebrow" style="font-family: Merriweather; font-size: clamp(1.4rem, 5vw, 2.2rem);"><span class="marker"></span><span class="lg-blink">Lock in.</span></div>
-          <h1 class="headline">
-            <span class="line">Clean<span class="dot">.</span></span>
-            <span class="line">Intense<span class="dot">.</span></span>
-            <span class="line">Focus<span class="dot">.</span></span>
-          </h1>
-          <p class="hero-promise">The Perfect Formula<span class="dot">.</span></p>
-          <p class="ingredients mono" style="font-family: Merriweather">Functional gum that works through your cheek in minutes — clean, intense focus you can summon anywhere. No water, no wait, no crash.</p>
-          <a class="topbar-cta hero-cta" href="#waitlist">Get on the list <span class="arrow" aria-hidden="true">↓</span></a>
-        </div>
-        <div class="hero-media"><img class="hero-img" src="uploads/hf_20260612_163742_86f001d1-6e6b-432b-8e38-f26a0ff1a06b.jpg" alt="Lucid Gum — blister pack and tablets" /></div>
-      </div>
+    <div class="hero-inner wrap">
+      <p class="eyebrow">Nootropic gum for deep focus</p>
+      <h1 class="hero-head" style="font-size: 90px">The Future<br />of Focus</h1>
+      <p class="hero-sub">Clean, intense focus you can chew anywhere — instantly, immediately. No water, no wait, no crash.</p>
+      <a class="btn" href="#waitlist" style="padding: 16px 27px; margin: 35px 0px 10px">Get on the list <span aria-hidden="true">→</span></a>
+    </div>
 
-      <div class="hero-foot mono">
-        <span style="font-family: Merriweather">Created for focus under pressure.</span>
-        <span>Scroll ↓</span>
-      </div>
-    </section>
+    <div class="horizon"><div class="sun"></div></div>
+  </section>
 
-    <!-- ===================== PILLARS (ivory) ===================== -->
-    <section class="pillars pad" data-screen-label="Pillars">
-      <div class="pillars-eyebrow eyebrow"><span class="marker"></span>Our thesis</div>
-      <h2 class="pillars-head">Not just energy,
-but <span class="ul">focus</span>.</h2>
-      <div class="pillar-grid">
-        <div class="pillar">
-          <div class="pillar-num mono">01</div>
-          <h3 class="pillar-title">When you need it</h3>
-          <p class="pillar-body">Lucid Gum is for when the pressure is so great you need a different edge.</p>
-        </div>
-        <div class="pillar">
-          <div class="pillar-num mono">02</div>
-          <h3 class="pillar-title">Sustained clarity</h3>
-          <p class="pillar-body">A single piece provides long-term focus, not a quick energy boost. Focus produces results.</p>
-        </div>
-        <div class="pillar">
-          <div class="pillar-num mono">03</div>
-          <h3 class="pillar-title">Clean and quick</h3>
-          <p class="pillar-body">Nothing extra.The ingredients absorb directly through the buccal tissue, and start working instantly.</p>
+  <!-- ===================== § THESIS ===================== -->
+  <section class="section thesis wrap" data-screen-label="Thesis">
+    <div class="thesis-layout">
+      <div class="thesis-copy">
+        <span class="kicker">Our thesis</span>
+        <h2 class="section-title">Not just energy, but <em>focus</em></h2>
+        <div class="thesis-grid">
+          <div class="thesis-item">
+            <div class="t-no">01</div>
+            <h3 class="t-title">When you need it</h3>
+            <p class="t-body">Lucid Gum is for when the pressure is so great you need a different edge.</p>
+          </div>
+          <div class="thesis-item">
+            <div class="t-no">02</div>
+            <h3 class="t-title">Sustained clarity</h3>
+            <p class="t-body">A single piece provides long-term focus, not a quick energy boost. Focus produces results.</p>
+          </div>
+          <div class="thesis-item">
+            <div class="t-no">03</div>
+            <h3 class="t-title">Clean and quick</h3>
+            <p class="t-body">Nothing extra. The ingredients absorb directly through the buccal tissue, and start working instantly.</p>
+          </div>
         </div>
       </div>
-    </section>
+      <figure class="thesis-media"><img src="assets/lucid-pack-multi.png" alt="Lucid Gum — Intense Focus, three packs" /></figure>
+    </div>
+  </section>
 
-    <!-- ===================== MOMENTS (dark, editorial) ===================== -->
-    <section class="moments pad" data-screen-label="Moments">
-      <div class="moments-copy">
-      <div class="moments-eyebrow eyebrow"><span class="marker light"></span>The occasion</div>
-      <h2 class="moments-head">Made for the moments you can't fumble<span class="dot">.</span></h2>
-      <div class="moments-scenes">
-        <p class="scene">It's 2AM, and the problem set is due at 9. Three problems—the hardest ones—haven't been touched; the energy drink quit an hour ago. Time to chew a piece. <span class="scene-lock">Lock in.</span></p>
-        <p class="scene">It's past 11PM, and the buyer list is barely touched: it's due at 9. Half the sponsors need updates, the MD wants "more edge", and your inbox just lit up, again. Lucid Gum. <span class="scene-lock">Lock in.</span></p>
-      </div>
-      <p class="moments-foot mono" style="font-family: Merriweather">When the moment can't slip, neither do you.</p>
-      </div>
-      <div class="moments-media">
-        <img class="moments-img" src="uploads/Joseph_Wright_of_Derby_The_Alchemist.jpg" alt="Joseph Wright of Derby — The Alchemist Discovering Phosphorus (1771)" />
-        <p class="moments-credit mono" style="font-family: Merriweather">The Alchemist Discovers Lucid Gum.</p>
-      </div>
-    </section>
+  <hr class="sun-rule" />
 
-    <!-- ===================== FEEL + FORMULA (dark, clinical) ===================== -->
-    <section class="formula pad" data-screen-label="Feel">
-      <div class="feel-grid">
+  <!-- ===================== § MOMENTS (black/yellow plate) ===================== -->
+  <section class="section moments-dark wrap" data-screen-label="Moments">
+    <span class="kicker">The occasion</span>
+    <h2 class="section-title">Made for the moments you can't fumble</h2>
+    <div class="moments-grid">
+      <div class="scene">
+        <div class="scene-no">01</div>
+        <p>It's 2AM, and the problem set is due at 9. Three problems—the hardest ones—haven't been touched; the energy drink quit an hour ago. It's time to chew a piece.</p>
+      </div>
+      <div class="scene">
+        <div class="scene-no">02</div>
+        <p>It's past 11PM, and the buyer list is barely touched: it's due at 8 in the morning. Half the sponsors need updates, the MD wants “more edge,” and your inbox just lit up, again. Piece again.</p>
+      </div>
+    </div>
+    <p class="moments-foot">Easy, immediate: the future of focus is here.</p>
+  </section>
+
+  <hr class="sun-rule" />
+
+  <!-- ===================== § FEEL ===================== -->
+  <section class="section wrap" data-screen-label="Feel">
+    <span class="kicker">What you'll feel</span>
+    <h2 class="section-title">Focused for hours, not minutes</h2>
+    <div class="feel-grid">
       <div class="feel-copy">
-      <div class="formula-eyebrow eyebrow"><span class="marker"></span>What you'll feel</div>
-      <h2 class="formula-head">Locked in for hours, not minutes<span class="dot">.</span></h2>
-      <p class="formula-lede">Within minutes of chewing, the mental clutter becomes silent. You feel more attentive, have an easier time staying on the hard thing, and feel an energy that climbs and holds instead of spiking and crashing. You're <span class="ul">lucid</span>.</p>
-      <p class="formula-lede">The effect isn't foggy; it's just a longer, steadier version of your own best focus, held through.</p>
-      <p class="formula-lede">Caffeine alone spikes quickly, then disappears. Lucid's three actives climb together, then quickly hold. There's no crash with hours of work left, and you feel more alert and focused than with any other stack.</p>
+        <p>Within moments of chewing, the mental clutter becomes silent. You feel more attentive, have an easier time staying on the hard thing, and feel a powerful energy that climbs instead of crashing. You're lucid.</p>
+        <p>The effect isn't foggy; it's a longer, steadier version of your own best focus, held through.</p>
+        <p>Caffeine alone spikes quickly, then disappears. Lucid's three actives reinforce each other. There's no crash with hours of work left, and you feel more alert and focused than with any other stack.</p>
       </div>
-      <div class="feel-media"><img class="ph feel-curve" src="assets/synergy-curve.png" alt="Synergy curve — caffeine spike vs. Lucid hold"></div>
-      </div>
-
-      <div class="research">
-        <div class="research-eyebrow eyebrow"><span class="marker"></span>Backed by research</div>
-        <ol class="refs mono">
-          <li>Cintineo, H. P., Bello, M. L., Chandler, A. J., Cardaci, T. D., McFadden, B. A., &amp; Arent, S. M. (2022). Effects of caffeine, methylliberine, and theacrine on vigilance, marksmanship, and hemodynamic responses in tactical personnel: a double-blind, randomized, placebo-controlled trial. <em>Journal of the International Society of Sports Nutrition, 19</em>(1), 543–564. <a href="https://doi.org/10.1080/15502783.2022.2113339" target="_blank" rel="noopener">doi.org/10.1080/15502783.2022.2113339</a></li>
-          <li>Tartar, J. L., Banks, J. B., Marang, M., Pizzo, F., &amp; Antonio, J. (2021). A combination of caffeine, TeaCrine® (theacrine), and Dynamine® (methylliberine) increases cognitive performance and reaction time without interfering with mood in adult male egamers. <em>Cureus, 13</em>(12), e20534. <a href="https://doi.org/10.7759/cureus.20534" target="_blank" rel="noopener">doi.org/10.7759/cureus.20534</a></li>
-        </ol>
-        <p class="refs-note mono">Lucid Gum is this new research in chewable form. In randomized, double-blind, placebo-controlled trials, this combination of actives improved focus, vigilance, and reaction time versus placebo, all without dragging down mood.</p>
-      </div>
-    </section>
-
-    <!-- ===================== FORMULA (dark, clinical) ===================== -->
-    <section class="formula-band pad" data-screen-label="Formula">
-      <div class="proof">
-        <div class="proof-eyebrow eyebrow"><span class="marker light"></span>The formula</div>
-        <p class="proof-lede">Three lab-grade actives, synergized to work as one — the result is a clean lift that climbs smooth and holds flat, where caffeine alone spikes and crashes.</p>
-
-      <div class="effect-grid">
-        <div class="effect">
-          <div class="effect-fig"><img class="mol" src="uploads/Caffeine_structure.svg.png" alt="Caffeine molecular structure" /></div>
-          <div class="effect-name">Caffeine <span class="effect-mg mono">40mg</span></div>
-          <p class="effect-body">Immediate, familiar alertness.</p>
+      <figure class="feel-fig">
+        <div class="fig-frame">
+          <div class="fig-bar">
+            <span class="fig-tag">The effect curve</span>
+            <span class="fig-legend">
+              <span class="fig-key"><i style="background:#7a746b"></i>Caffeine</span>
+              <span class="fig-key"><i style="background:var(--oxblood)"></i>Lucid</span>
+            </span>
+          </div>
+          <img src="assets/synergy-curve.png" alt="Caffeine spikes and crashes; Lucid's three actives climb together and hold" />
         </div>
-        <div class="effect">
-          <div class="effect-fig"><img class="mol" src="uploads/Theacrine.svg.png" alt="Theacrine molecular structure" /></div>
-          <div class="effect-name">Theacrine <span class="effect-mg mono">30mg</span></div>
-          <p class="effect-body">Smooth, steady focus that holds.</p>
-        </div>
-        <div class="effect">
-          <div class="effect-fig"><img class="mol" src="uploads/Methylliberine_v2.svg.png" alt="Methylliberine molecular structure" /></div>
-          <div class="effect-name">Methylliberine <span class="effect-mg mono">30mg</span></div>
-          <p class="effect-body">Fast, balanced energy without the crash.</p>
-        </div>
-      </div>
-      <p class="formula-sub mono">Per piece · sugar-free · aspartame-free.</p>
-      </div>
-    </section>
+        <figcaption class="feel-cap">Caffeine spikes, then crashes — Lucid climbs and holds</figcaption>
+      </figure>
+    </div>
+  </section>
 
-    <!-- ===================== WAITLIST (dark banner) ===================== -->
-    <section class="waitlist pad" id="waitlist" data-screen-label="Waitlist" style="scroll-margin-top: 0.5rem;">
-      <div class="wl-grid">
-        <div class="wl-media">
-          <img class="slot" id="product" src="uploads/IMG_3549.jpeg" alt="Lucid — energy gum blister pack" />
-        </div>
-        <div class="wl-inner">
-        <div class="wl-eyebrow eyebrow" style="font-family: Merriweather;"><span class="marker light"></span>Get on the list</div>
-        <h2 class="wl-head">Be the first to lock in.</h2>
+  <!-- ===================== § FORMULA ===================== -->
+  <section class="section wrap" data-screen-label="Formula">
+    <span class="kicker">The formula</span>
+    <h2 class="section-title">Three actives, working as one</h2>
+    <p class="formula-lede">Three lab-grade actives, synergized to work as one — the result is a clean lift that climbs smooth and holds flat, where caffeine alone spikes and crashes.</p>
+    <div class="mol-grid">
+      <div class="mol-item">
+        <div class="mol-fig"><img src="uploads/Caffeine_structure.svg.png" alt="Caffeine molecular structure" /></div>
+        <div class="mol-name">Caffeine <span class="mol-mg">40mg</span></div>
+        <p class="mol-body">Immediate, familiar alertness.</p>
+      </div>
+      <div class="mol-item">
+        <div class="mol-fig"><img src="uploads/Theacrine.svg.png" alt="Theacrine molecular structure" /></div>
+        <div class="mol-name">Theacrine <span class="mol-mg">30mg</span></div>
+        <p class="mol-body">Powerful, steady focus that holds.</p>
+      </div>
+      <div class="mol-item">
+        <div class="mol-fig"><img src="uploads/Methylliberine_v2.svg.png" alt="Methylliberine molecular structure" /></div>
+        <div class="mol-name">Methylliberine <span class="mol-mg">30mg</span></div>
+        <p class="mol-body">Fast, intense energy with no crash.</p>
+      </div>
+    </div>
+    <p class="formula-sub">Per piece · sugar-free · aspartame-free</p>
+  </section>
 
+  <!-- ===================== § RESEARCH ===================== -->
+  <section class="section wrap" data-screen-label="Research">
+    <span class="kicker">Backed by research</span>
+    <p class="formula-lede">Lucid Gum is this new research in chewable form. In randomized, double-blind, placebo-controlled trials, this combination of actives improved focus, vigilance, and reaction time versus placebo — all without dragging down mood.</p>
+    <ol class="refs">
+      <li>Cintineo, H. P., Bello, M. L., Chandler, A. J., Cardaci, T. D., McFadden, B. A., &amp; Arent, S. M. (2022). Effects of caffeine, methylliberine, and theacrine on vigilance, marksmanship, and hemodynamic responses in tactical personnel: a double-blind, randomized, placebo-controlled trial. <em>Journal of the International Society of Sports Nutrition, 19</em>(1), 543–564. <a href="https://doi.org/10.1080/15502783.2022.2113339" target="_blank" rel="noopener">doi.org/10.1080/15502783.2022.2113339</a></li>
+      <li>Tartar, J. L., Banks, J. B., Marang, M., Pizzo, F., &amp; Antonio, J. (2021). A combination of caffeine, TeaCrine® (theacrine), and Dynamine® (methylliberine) increases cognitive performance and reaction time without interfering with mood in adult male egamers. <em>Cureus, 13</em>(12), e20534. <a href="https://doi.org/10.7759/cureus.20534" target="_blank" rel="noopener">doi.org/10.7759/cureus.20534</a></li>
+    </ol>
+  </section>
+
+  <hr class="sun-rule" id="waitlist" />
+
+  <!-- ===================== § WAITLIST ===================== -->
+  <section class="section waitlist wrap" data-screen-label="Waitlist">
+    <div class="wl-grid">
+      <figure class="wl-media"><img src="assets/lucid-pack-single.png" alt="Lucid Gum — Intense Focus pack" style="height: 467px" /></figure>
+      <div class="wl-copy">
+        <span class="kicker">Get on the list</span>
+        <h2 class="wl-head section-title">Be the first to know</h2>
         <form class="wl-form" id="wlForm" novalidate>
           <input type="email" id="wlEmail" name="email" placeholder="you@email.com" autocomplete="email" aria-label="Email address" />
           <button type="submit">Get early access</button>
         </form>
-        <p class="wl-error mono" id="wlError" hidden>Enter a valid email address.</p>
-        <p class="wl-note mono" id="wlNote" style="font-family: Merriweather">News, science, and early-access.</p>
-        <p class="wl-status mono">We plan to launch when formulation is complete. We'll email you first: no spam, and with early-access pricing.</p>
-
-        <div class="wl-confirm" id="wlConfirm" hidden>
-          <div class="ok">You're on the list<span class="dot">.</span></div>
-        </div>
+        <p class="wl-error" id="wlError" hidden>Enter a valid email address.</p>
+        <p class="wl-note" id="wlNote">News, science, and early access.</p>
+        <p class="wl-status">We plan to launch when formulation is complete. We'll email you first: no spam, and with early-access pricing.</p>
+        <div class="wl-confirm" id="wlConfirm" hidden><div class="ok">You're on the list</div></div>
       </div>
-      </div>
-    </section>
-
-    <!-- ===================== CONTACT (ivory) ===================== -->
-    <section class="founder-section pad" data-screen-label="Contact">
-      <div class="fs-eyebrow eyebrow"><span class="marker"></span>Contact</div>
-      <div class="fs-list">
-        <div class="fs-item">
-          <span class="fs-role mono">General</span>
-          <a class="fs-email" href="mailto:company@lucidgum.co">company@lucidgum.co</a>
-        </div>
-        <div class="fs-item">
-          <span class="fs-role mono">Edward Yang · Founder</span>
-          <a class="fs-email" href="mailto:ey2370@columbia.edu">ey2370@columbia.edu</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== FOOTER ===================== -->
-    <footer class="footer pad" data-screen-label="Footer">
-      <div class="wordmark">Lucid<span class="gum">&nbsp;Gum</span></div>
-      <div class="meta mono" style="font-family: Merriweather;">© 2026 Lucid Gum · Contains caffeine.</div>
-      <div class="meta right mono" style="font-family: Merriweather">Launching Summer 2026</div>
-    </footer>
-
-    <!-- ===================== SOCIAL BAR ===================== -->
-    <div class="socialbar pad" data-screen-label="Social">
-      <nav class="social mono" aria-label="Social">
-        <a href="https://www.instagram.com/takelucid/" target="_blank" rel="noopener" style="font-family: Merriweather">Instagram</a>
-        <a href="https://www.tiktok.com/@takelucid" target="_blank" rel="noopener" style="font-family: Merriweather">TikTok</a>
-        <a href="http://linkedin.com/company/lucid-gum" target="_blank" rel="noopener" style="font-family: Merriweather">LinkedIn</a>
-      </nav>
     </div>
+  </section>
 
+  <!-- ===================== CONTACT ===================== -->
+  <section class="section contact-dark wrap" data-screen-label="Contact">
+    <span class="kicker">Contact</span>
+    <div class="contact-list">
+      <div class="contact-item"><span class="contact-role">General</span><a class="contact-email" href="mailto:company@lucidgum.co">company@lucidgum.co</a></div>
+      <div class="contact-item"><span class="contact-role">Edward Yang · Founder</span><a class="contact-email" href="mailto:ey2370@columbia.edu">ey2370@columbia.edu</a></div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer dark wrap" data-screen-label="Footer">
+    <div class="wordmark">Lucid<span class="sun-dot"></span></div>
+    <div class="footer-meta">© 2026 Lucid Gum · Contains caffeine</div>
+    <div class="footer-meta">Summer 2026</div>
+  </footer>
+  <div class="socialbar dark wrap">
+    <nav class="social" aria-label="Social">
+      <a href="https://www.instagram.com/takelucid/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.tiktok.com/@takelucid" target="_blank" rel="noopener">TikTok</a>
+      <a href="http://linkedin.com/company/lucid-gum" target="_blank" rel="noopener">LinkedIn</a>
+    </nav>
   </div>
 
-
-  <!-- ===================== WAITLIST LOGIC (vanilla, instant states) ===================== -->
   <script>
     (function () {
-      // ▼▼▼ PASTE YOUR SUPABASE PROJECT VALUES HERE (Supabase dashboard → Settings → API) ▼▼▼
       var SUPABASE_URL = "https://jjcrbocoszoysrxbpupr.supabase.co";
       var SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpqY3Jib2Nvc3pveXNyeGJwdXByIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEzMjc0NzIsImV4cCI6MjA5NjkwMzQ3Mn0.IvSL5gN7X2L0mOm_OT3so7eVMP1PyfmC7WQwaI8i6DY";
-      // ▲▲▲ The anon key is safe to expose; the table only allows inserts, never reads ▲▲▲
       var STORE = "lucid_waitlist_email";
       var form = document.getElementById("wlForm");
       var input = document.getElementById("wlEmail");
       var error = document.getElementById("wlError");
       var note = document.getElementById("wlNote");
       var confirm = document.getElementById("wlConfirm");
-      var confirmEmail = document.getElementById("wlConfirmEmail");
       var wlHead = document.querySelector(".wl-head");
       var wlStatus = document.querySelector(".wl-status");
       var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
       function showConfirmed(email) {
-        if (confirmEmail) { confirmEmail.textContent = email; }
         form.setAttribute("hidden", "");
         note.setAttribute("hidden", "");
         error.setAttribute("hidden", "");
@@ -1102,25 +516,16 @@ but <span class="ul">focus</span>.</h2>
         var prevLabel = btn.textContent;
         btn.disabled = true;
         btn.textContent = "Joining\u2026";
-
         fetch(SUPABASE_URL + "/rest/v1/waitlist", {
           method: "POST",
-          headers: {
-            "apikey": SUPABASE_ANON_KEY,
-            "Authorization": "Bearer " + SUPABASE_ANON_KEY,
-            "Content-Type": "application/json",
-            "Prefer": "return=minimal"
-          },
+          headers: { "apikey": SUPABASE_ANON_KEY, "Authorization": "Bearer " + SUPABASE_ANON_KEY, "Content-Type": "application/json", "Prefer": "return=minimal" },
           body: JSON.stringify({ email: val })
         })
           .then(function (r) {
-            // 201 = added, 409 = already on the list — both count as success
             if (r.ok || r.status === 409) {
               try { localStorage.setItem(STORE, val); } catch (e) {}
               showConfirmed(val);
-            } else {
-              throw new Error("HTTP " + r.status);
-            }
+            } else { throw new Error("HTTP " + r.status); }
           })
           .catch(function () {
             btn.disabled = false;
@@ -1136,85 +541,32 @@ but <span class="ul">focus</span>.</h2>
       });
     })();
   </script>
-
-  <!-- ===================== MICRO-MOTION: snap-in + focus-in reveal ===================== -->
   <script>
     (function () {
       var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-      // C — one-shot headline snap-in: play, then strip the class so nothing
-      // lingers to be restarted by re-renders / screenshot clones.
-      var hl = document.querySelector(".headline");
-      if (hl && !reduce) {
-        hl.classList.add("lg-play");
-        setTimeout(function () { hl.classList.remove("lg-play"); }, 1300);
-      }
-
-      if (reduce || !("IntersectionObserver" in window)) return;
-
-      // D — "Focus-in" reveal: curated blocks sharpen + rise into view as they
-      // enter the viewport. Grid siblings stagger via an inline --d delay.
-      var sel = [
-        ".pillars-eyebrow", ".pillars-head", ".pillar",
-        ".moments-eyebrow", ".moments-head", ".scene", ".moments-foot", ".moments-media",
-        ".whygum-eyebrow", ".whygum-head", ".wg-item",
-        ".formula-eyebrow", ".formula-head", ".formula-lede", ".feel-media",
-        ".research", ".proof-eyebrow", ".proof-lede", ".effect", ".formula-sub",
-        ".product-eyebrow", ".product-head", ".product-body", ".product-spec", ".product-media",
-        ".context-eyebrow", ".context-line", ".context-credit",
-        ".wl-eyebrow", ".wl-head", ".wl-form", ".wl-note", ".wl-status", ".wl-media",
-        ".fs-eyebrow", ".fs-item"
-      ].join(",");
-
-      var els = [].slice.call(document.querySelectorAll(sel));
-      if (!els.length) return;
-
-      // Stagger siblings that share a parent (so grid rows cascade, not pop)
+      var sel = ".hero .eyebrow, .hero .hero-head, .hero .hero-sub, .hero .btn, .sun, .section .kicker, .section .section-title, .thesis-item, .thesis-media, .scene, .moments-foot, .feel-copy, .feel-fig, .formula-lede, .mol-item, .formula-sub, .refs li, .wl-media, .wl-form, .wl-note, .wl-status, .contact-item, .footer .wordmark, .footer-meta, .social, .sun-rule";
+      var nodes = Array.prototype.slice.call(document.querySelectorAll(sel));
       var groups = new Map();
-      els.forEach(function (el) {
-        el.classList.add("lg-reveal");
-        var p = el.parentElement;
-        if (!groups.has(p)) groups.set(p, []);
-        groups.get(p).push(el);
+      nodes.forEach(function (n) {
+        n.setAttribute("data-reveal", "");
+        if (n.matches(".section-title, .hero-head")) n.classList.add("rv-blur");
+        if (n.matches(".sun-rule")) n.classList.add("rv-wipe");
+        if (n.matches(".sun")) n.classList.add("rv-sun");
+        var p = n.parentElement;
+        var i = groups.get(p) || 0; groups.set(p, i + 1);
+        n.style.setProperty("--rd", Math.min(i, 5) * 80 + "ms");
       });
-      groups.forEach(function (list) {
-        list.forEach(function (el, i) {
-          el.style.setProperty("--d", Math.min(i, 5) * 70 + "ms");
-        });
-      });
-
-      // Reveal as elements enter, then STRIP the classes on animationend so the
-      // resting DOM has no animation left to restart — otherwise a re-render /
-      // screenshot clone replays it frozen at the hidden first frame. (Same
-      // one-shot discipline as the headline snap above.) A fallback timer cleans
-      // up too, in case animationend never fires (e.g. backgrounded tab).
-      function cleanup(el) {
-        el.classList.remove("lg-in");
-        el.classList.remove("lg-reveal");
-        el.style.removeProperty("--d");
+      if (reduce || !("IntersectionObserver" in window)) {
+        nodes.forEach(function (n) { n.classList.add("in"); });
+        return;
       }
-      function reveal(el) {
-        el.addEventListener("animationend", function onEnd(ev) {
-          if (ev.animationName !== "lg-focus") return;
-          el.removeEventListener("animationend", onEnd);
-          cleanup(el);
-        });
-        el.classList.add("lg-in");
-        setTimeout(function () { cleanup(el); }, 1600); // belt-and-suspenders
-      }
-
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (e) {
-          if (e.isIntersecting) {
-            reveal(e.target);
-            io.unobserve(e.target);
-          }
+          if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
         });
-      }, { rootMargin: "0px 0px 10% 0px", threshold: 0 });
-
-      els.forEach(function (el) { io.observe(el); });
+      }, { rootMargin: "0px 0px -8% 0px", threshold: 0 });
+      nodes.forEach(function (n) { io.observe(n); });
     })();
   </script>
-
 </body>
 </html>
